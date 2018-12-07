@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- Warehouse_basetypes starts here -->
+	<xs:simpleType name="t_vstring60">
+		<xs:annotation>
+			<xs:documentation>string with variable length, 1 to 60 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vstring50">
+		<xs:annotation>
+			<xs:documentation>string with variable length, 1 to 50 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vstring120">
+		<xs:annotation>
+			<xs:documentation>string with variable length, 1 to 120 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="120"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vstring256">
+		<xs:annotation>
+			<xs:documentation>string with variable length, 1 to 256 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="256"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vstring1024">
+		<xs:annotation>
+			<xs:documentation>string with variable length, 1 to 1024 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1024"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vstring2510">
+		<xs:annotation>
+			<xs:documentation>string with variable length, 1 to 2510 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="2510"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_URI120">
+		<xs:annotation>
+			<xs:documentation>URI (Uniform Resource Identifier), 1 to 120 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:anyURI">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="120"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_price">
+		<xs:annotation>
+			<xs:documentation>Price</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<!-- Warehouse_types starts here -->
+	<xs:simpleType name="t_fileURI">
+		<xs:annotation>
+			<xs:documentation>File location URI - up to 120 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_URI120"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_article_number">
+		<xs:annotation>
+			<xs:documentation>Article number - unique per supplier</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_ean_upc">
+		<xs:annotation>
+			<xs:documentation>EAN (European Articel Number) or UPC (US Product Code) - 12 or 13 numerical digits</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:pattern value="[0-9]{12,13}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_grid">
+		<xs:annotation>
+			<xs:documentation>Global Release Identifier - 18 alphanumerical digits</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:pattern value="[0-9A-Za-z]{18}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_isrc">
+		<xs:annotation>
+			<xs:documentation>International Standard Recording Code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_pn_track_id">
+		<xs:annotation>
+			<xs:documentation>Phononet track ID</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring50"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_mailboxno">
+		<xs:annotation>
+			<xs:documentation>Phononet customer number - 4 numerical digits</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:pattern value="[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_publisher">
+		<xs:annotation>
+			<xs:documentation>Name of publisher</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_composer">
+		<xs:annotation>
+			<xs:documentation>Name of composer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_configuration">
+		<xs:annotation>
+			<xs:documentation>Configuration (product type)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring256"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_dvd_regional_code">
+		<xs:annotation>
+			<xs:documentation>DVD regional code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="00"/>
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
+			<xs:enumeration value="A1"/>
+			<xs:enumeration value="B2"/>
+			<xs:enumeration value="C3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_age_recommendation">
+		<xs:annotation>
+			<xs:documentation>Age recommendation</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_price_category">
+		<xs:annotation>
+			<xs:documentation>Price category: high, medium, budget</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_price_code">
+		<xs:annotation>
+			<xs:documentation>Price code - 4 alphanumerical characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_charity_donation">
+		<xs:annotation>
+			<xs:documentation>Charity donation included in price - value in percent</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_sales_area">
+		<xs:annotation>
+			<xs:documentation>Subdistribution code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_marketing_unit">
+		<xs:annotation>
+			<xs:documentation>Marketing unit</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_person">
+		<xs:annotation>
+			<xs:documentation>Person's name</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring256"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_label_name">
+		<xs:annotation>
+			<xs:documentation>Label name</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring120"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_label_short_name">
+		<xs:annotation>
+			<xs:documentation>Label's short name</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_label_code">
+		<xs:annotation>
+			<xs:documentation>Label code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:pattern value="[0-9]{5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_artist_name">
+		<xs:annotation>
+			<xs:documentation>Artist name</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring256"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_title">
+		<xs:annotation>
+			<xs:documentation>Title, free text up to 120 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring256"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_title_version">
+		<xs:annotation>
+			<xs:documentation>Title version</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger">
+			<xs:maxInclusive value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_trackno">
+		<xs:annotation>
+			<xs:documentation>Sequential track number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:unsignedInt"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_setno">
+		<xs:annotation>
+			<xs:documentation>Sequential set number if product consists of multiple media</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger">
+			<xs:maxInclusive value="999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_playtime">
+		<xs:annotation>
+			<xs:documentation>Playtime in mmm:ss</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[0-9]{1,6}:[0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_description">
+		<xs:annotation>
+			<xs:documentation>Description</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring1024"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_comment">
+		<xs:annotation>
+			<xs:documentation>Comment</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring1024"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_genre_code">
+		<xs:annotation>
+			<xs:documentation>Genre (code) - see Phononet codelist</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:unsignedInt"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_genre">
+		<xs:annotation>
+			<xs:documentation>Genre name</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring120"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_keyword">
+		<xs:annotation>
+			<xs:documentation>Keyword (code) - see Phononet codelist</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_picture_format">
+		<xs:annotation>
+			<xs:documentation>Picture file format</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="jpg"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_picture_resolution">
+		<xs:annotation>
+			<xs:documentation>Picture resolution in pixel</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_picture_title">
+		<xs:annotation>
+			<xs:documentation>Picture title, up to 60 characters</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_vstring60"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_artwork_type">
+		<xs:annotation>
+			<xs:documentation>Artwork's type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="front"/>
+			<xs:enumeration value="back"/>
+			<xs:enumeration value="extra"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_artwork_pageno">
+		<xs:annotation>
+			<xs:documentation>Artwork's page number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger">
+			<xs:maxInclusive value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_sound_type">
+		<xs:annotation>
+			<xs:documentation>Sound type - 'prelistening' or 'download'</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="prelistening"/>
+			<xs:enumeration value="download"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_codec">
+		<xs:annotation>
+			<xs:documentation>Media Codec: wav, real, wma, mp3, flv, webm, mp4, ogg</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="wav"/>
+			<xs:enumeration value="real"/>
+			<xs:enumeration value="wma"/>
+			<xs:enumeration value="mp3"/>
+			<xs:enumeration value="flv"/>
+			<xs:enumeration value="webm"/>
+			<xs:enumeration value="mp4"/>
+			<xs:enumeration value="ogg"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_bitrate">
+		<xs:annotation>
+			<xs:documentation>Track's encoding bitrate in kbps</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_channel">
+		<xs:annotation>
+			<xs:documentation>Track's encoding channels: mono, stereo, 5:1</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_sampling_rate">
+		<xs:annotation>
+			<xs:documentation>Track's sampling rate in Hz</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger"/>
+	</xs:simpleType>
+	<!-- Warehouse_types ends here -->
+	<xs:element name="file" type="t_fileURI">
+		<xs:annotation>
+			<xs:documentation>Filename</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="t_picture">
+		<xs:annotation>
+			<xs:documentation>Picture</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="resolution_x">
+				<xs:annotation>
+					<xs:documentation>Picture resolution, x-axis</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_picture_resolution"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="resolution_y" type="t_picture_resolution">
+				<xs:annotation>
+					<xs:documentation>Picture resolution, y-axis</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="format" type="t_picture_format">
+				<xs:annotation>
+					<xs:documentation>Picture file format</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="file">
+				<xs:annotation>
+					<xs:documentation>Picture file location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="md5_checksum" type="t_vstring256">
+				<xs:annotation>
+					<xs:documentation>cover md5 checksum</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="link" type="t_vstring256" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Link to cover server</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="picture_text" type="t_picture_title" minOccurs="0"/>
+			<xs:element name="copyright" type="t_vstring1024" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_artwork_picture">
+		<xs:annotation>
+			<xs:documentation>Artwork picture - extends type 'picture' by element 'title'</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="t_picture">
+				<xs:attribute name="type" type="t_artwork_type" use="required">
+					<xs:annotation>
+						<xs:documentation>Artwork type - 'cover', 'front' or 'booklet'</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="page" type="t_artwork_pageno" use="required">
+					<xs:annotation>
+						<xs:documentation>Artwork page number - from 1 to 99</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_sound">
+		<xs:annotation>
+			<xs:documentation>Sound information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="file">
+				<xs:annotation>
+					<xs:documentation>Picture resolution, x-axis</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sound_type" type="t_sound_type">
+				<xs:annotation>
+					<xs:documentation>Sound type, here always prelistening</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="codec" type="t_codec">
+				<xs:annotation>
+					<xs:documentation>Soundfile format</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bitrate" type="t_bitrate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Soundfile bitrate in kbps</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="channels" type="t_channel" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Soundfile channel information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sampling_rate" type="t_sampling_rate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Soundfile sampling rate in Hz</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="playtime" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="g_age_recommendation">
+		<xs:annotation>
+			<xs:documentation>Age recommendation</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FSK" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Film ratings, german FSK (Freiwillige Selbstkontrolle) 0020017001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recommended_age" type="t_age_recommendation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Recommended age minimum 0020017002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PEGI_recommended_age" type="t_age_recommendation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>PEGI age recommendation 0020017051</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PEGI" type="xs:NMTOKEN" minOccurs="0" maxOccurs="8">
+				<xs:annotation>
+					<xs:documentation>PEGI warning 0020017052 - 0020017059, values: violence, bad_language, fear, drug_abuse, sex, discrimination, gambling, online</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="g_product">
+		<xs:annotation>
+			<xs:documentation>Product information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="configuration_number">
+				<xs:annotation>
+					<xs:documentation>Configuration number 0020010005</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_configuration">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="configuration" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Configuration (product type) text</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="artist">
+				<xs:annotation>
+					<xs:documentation>Main artist 0020010002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="t_title">
+				<xs:annotation>
+					<xs:documentation>Title (50-characters, alphanumeric) 0020010001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="composer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Composer 0020010003</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title_addition" type="t_vstring120" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Title addition 0020014001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dvd_regional_code" type="t_dvd_regional_code" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>DVD regional code (two digits) 002001006</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="actor" type="t_vstring120" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Actor (DVD movie) 0020010007</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="language" type="t_vstring120" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Languages supported (DVD movie) 0020010008</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aspect_ratio" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Movie aspect ratio, e.g. 16:9 (DVD movie) 0020010009</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="studio" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Studio information (DVD movie) 0020010010</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="total_playtime" type="t_playtime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Total playtime (DVD movie) 0020010011</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="features" type="t_vstring120" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Features (DVD movie) 0020010012</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sound_format" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Sound format (DVD movie) 0020010013</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="article_info" type="t_vstring1024" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General product information 00200100014</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subtitle" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Subtitle information 0020010015</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="original_title" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Original title 0020010016</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_vstring120">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="language_code" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ISO code 0020010017</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_vstring50">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="author" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Book author or screenwriter 0020010018</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_vstring120">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="set_total" type="t_setno">
+				<xs:annotation>
+					<xs:documentation>Product consists of n sets of physical media 0020011001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="packing_unit" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Content of standard packaging unit in pieces 0020011002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="movie_director" type="t_person" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Movie director 0020016001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="origin" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>National / international N/I 0020018003</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_vstring50">
+						<xs:maxLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="is_copyprotected" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>J for copy protection, N for no copy protection 0020018005</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="textile_information" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Information on textiles 0020021001</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_vstring256">
+						<xs:maxLength value="250"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="size" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Size information for textiles 0020022001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="color" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Color information for textiles 0020023001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="g_label">
+		<xs:annotation>
+			<xs:documentation>Label information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="label_name" type="t_label_name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Label name 0020006004</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="label_short_name">
+				<xs:annotation>
+					<xs:documentation>First 10 characters of GVL label name (recommended) 0020006002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="label_code" type="t_label_code" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>GVL Labelcode 0020006003</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="g_title">
+		<xs:annotation>
+			<xs:documentation>Title</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="title" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title_version" type="t_title_version" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Title version</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="work" type="t_vstring1024" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Work titel belongs to (classical music)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="grid" type="t_grid">
+		<xs:annotation>
+			<xs:documentation>Global Release Identifier</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="genre">
+		<xs:annotation>
+			<xs:documentation>Genre name</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="playtime" type="t_playtime">
+		<xs:annotation>
+			<xs:documentation>Track/Total playtime</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="description" type="t_description">
+		<xs:annotation>
+			<xs:documentation>Description</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="pn_mailboxno" type="t_mailboxno">
+		<xs:annotation>
+			<xs:documentation>Phononet mailbox identifier</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:group name="g_sales_information">
+		<xs:annotation>
+			<xs:documentation>Sales information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sales_area" type="t_sales_area" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Subdistribution code 0020006001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="price_code" type="t_price_code">
+				<xs:annotation>
+					<xs:documentation>Current price code 0020012001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="price_code_new" type="t_price_code" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Future price code 0020012005</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                        <xs:element name="price_code_new_valid_from" type="xs:date" minOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>Information about estimated activation date of new priccode 0020013003</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+ 
+			<xs:element name="wholesale_price_CHF" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Wholesale price CHF 0020012002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="charity_donation_CHF" type="t_charity_donation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Charity donation CHF included in price 0020012003</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recommended_retail_price_CHF" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Recommended retail price CHF 0020012004</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="wholesale_price_CHF_new" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Future wholesale price CHF 0020012006</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="charity_donation_CHF_new" type="t_charity_donation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Future charity donation CHF included in price 0020012007</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recommended_retail_price_CHF_new" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Future recommended retail price CHF 0020012008</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+                        <xs:element name="wholesale_price_EUR" type="t_vstring50" minOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>Wholesale price EUR 0020012009</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="charity_donation_EUR" type="t_charity_donation" minOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>Charity donation EUR included in price 0020012010</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+                        <xs:element name="recommended_retail_price_EUR" minOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>Recommended retail price EUR 0020012011</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+
+			<xs:element name="wholesale_price_EUR_new" type="t_vstring50" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Future wholesale price EUR 0020012012</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="charity_donation_EUR_new" type="t_charity_donation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Future charity donation EUR included in price 0020012013</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recommended_retail_price_EUR_new" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Future recommended retail price EUR 0020012014</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VAT_code" type="xs:NMTOKEN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>VAT code 0=no VAT, 1=reduced VAT, 2=full VAT 0020012051</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="price_category" type="t_price_category" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Price categories: High, Medium, Budget 0020018004</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="available" type="xs:NMTOKEN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Product available J/N 0020018001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                        <xs:element name="availability" type="xs:NMTOKEN" minOccurs="0">
+                                <xs:annotation>
+                                        <xs:documentation>Product availablility 0-9 0020018001</xs:documentation>
+                                </xs:annotation>
+                        </xs:element>
+			<xs:element name="media_promotion" type="xs:NMTOKEN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Media advertising J/N 0020018002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="net_price" type="xs:NMTOKEN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Net price indicator J/N 0020018008</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="price_fix" type="xs:NMTOKEN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Price fixed in accordance with german book price binding 0020018009</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="g_marketing_information">
+		<xs:annotation>
+			<xs:documentation>Marketing information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="marketing_unit" type="t_marketing_unit" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Marketing unit for distribution 0020020001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="campaign_blocked_from" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Promotion campaign blocked from this date 0020018006</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="campaign_blocked_until" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Promotion campaign blocked until this date 0020018007</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="physical_release_date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date of release: first day of availability of physical product in stores 0020013001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="physical_cancellation_date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cancellation date of physical product 0020013002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="change_mode" type="xs:NMTOKEN">
+				<xs:annotation>
+					<xs:documentation>Mode of article: 1=new, 2=changed, 3=canceled 0020008001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frontline" type="xs:NMTOKEN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Frontline/catalog indicator F/K 0020020002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="marketing_text" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Marketing information 0020010051</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_vstring2510"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rack_height" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Height of rack unit in mm 0020050001</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rack_depth" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Depth of rack unit in mm 0020050002</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rack_width" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Width of rack unit in mm 0020050003</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gross_weight" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Gross weight of article in g 0020050004</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dual_system" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Information to german dual system waste disposal 0020051001</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t_vstring120">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="last_return_shipment_application_date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Last possible return application date 0020018010</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="returnable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>J for returnable, N for not returnable 0020018011</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="track">
+		<xs:annotation>
+			<xs:documentation>Track description</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="trackno" type="t_trackno">
+					<xs:annotation>
+						<xs:documentation>Track number</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="setno" type="t_setno">
+					<xs:annotation>
+						<xs:documentation>Set number if product consists of multiple media</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="isrc" type="t_isrc" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>International Standard Recording Code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="pn_track_id" type="t_pn_track_id" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Unique track identifier, generated by PhonoNet</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="composer" type="t_composer" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Composer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="conductor" type="t_composer" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Conductor of choir or band leader</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="orchestra" type="t_composer" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Orchestra</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="main_publisher" type="t_publisher" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Main publisher</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="main_artist" type="t_artist_name" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Main artist</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:group ref="g_title">
+					<xs:annotation>
+						<xs:documentation>Title</xs:documentation>
+					</xs:annotation>
+				</xs:group>
+				<xs:group ref="g_age_recommendation">
+					<xs:annotation>
+						<xs:documentation>Age recommendation</xs:documentation>
+					</xs:annotation>
+				</xs:group>
+				<xs:element name="is_live" type="xs:boolean" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>L for recording of life performance, blank otherwise</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="playtime" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Track playtime</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="sound" type="t_sound" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="genre" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Track genre</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tracks">
+		<xs:annotation>
+			<xs:documentation>List of tracks</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element name="number_of_tracks" type="t_trackno">
+					<xs:annotation>
+						<xs:documentation>Total number of tracks for this product</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="playtime" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Total medium playtime</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element ref="track">
+					</xs:element>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:group name="g_system">
+		<xs:annotation>
+			<xs:documentation>System information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="date_of_change" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>0020013004</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="products">
+		<xs:annotation>
+			<xs:documentation>Root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="product">
+					<xs:annotation>
+						<xs:documentation>Product</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="article_number" type="t_article_number">
+								<xs:annotation>
+									<xs:documentation>Supplier-specific (internal) article number (not EAN) 0020009001</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:sequence>
+                                                                <xs:element name="gtin" type="t_ean_upc" minOccurs="1">
+                                                                        <xs:annotation>
+                                                                                <xs:documentation>GTIN always 13 digits 0020007001</xs:documentation>
+                                                                        </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="ean_upc" type="t_ean_upc" minOccurs="1">
+                                                                        <xs:annotation>
+                                                                                <xs:documentation>>EAN (European Articel Number) 13 digits, UPC (US Product Code) 12 digits 0020007001</xs:documentation>
+                                                                        </xs:annotation>
+                                                                </xs:element>
+								<xs:element name="ean_upc_old" type="t_ean_upc" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>EAN 13 digits, UPC 12 digits after change</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="ISBN-13" type="t_ean_upc" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>ISBN 0020007002</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="ean_upc_new" type="t_ean_upc" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>New EAN, UPC or ISBN 0020019001</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+							<xs:element name="distributor_number" type="t_mailboxno">
+								<xs:annotation>
+									<xs:documentation>Phononet customer number 0020005001</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="distributor_name" type="t_vstring256" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Phononet customer name</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="distributor_number_old" type="t_mailboxno" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Customer number before reallocation 0020005002</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:group ref="g_product">
+								<xs:annotation>
+									<xs:documentation>Product information</xs:documentation>
+								</xs:annotation>
+							</xs:group>
+							<xs:group ref="g_label">
+								<xs:annotation>
+									<xs:documentation>Label information</xs:documentation>
+								</xs:annotation>
+							</xs:group>
+							<xs:group ref="g_age_recommendation">
+								<xs:annotation>
+									<xs:documentation>Age recommendation</xs:documentation>
+								</xs:annotation>
+							</xs:group>
+							<xs:group ref="g_sales_information">
+								<xs:annotation>
+									<xs:documentation>Sales information</xs:documentation>
+								</xs:annotation>
+							</xs:group>
+							<xs:group ref="g_marketing_information">
+								<xs:annotation>
+									<xs:documentation>Marketing information</xs:documentation>
+								</xs:annotation>
+							</xs:group>
+							<xs:sequence>
+								<xs:element name="genre_code" type="t_genre_code">
+									<xs:annotation>
+										<xs:documentation>3 digit genre code 0020010004</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element ref="genre">
+									<xs:annotation>
+										<xs:documentation>Product genre</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+							<xs:sequence minOccurs="0">
+								<xs:element name="keyword_code_1" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Genre keyword code 1 for product 0020015001</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:sequence minOccurs="0">
+									<xs:element name="keyword_code_2" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Genre keyword code 2 for product product 0020015002</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:sequence minOccurs="0">
+										<xs:element name="keyword_code_3" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Genre keyword code 3 for product product 0020015003</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:sequence minOccurs="0">
+											<xs:element name="keyword_code_4" minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Genre keyword code 4 for product product 0020015004</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="keyword_code_5" minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Genre keyword code 5 for product product 0020015005</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:sequence>
+								</xs:sequence>
+							</xs:sequence>
+							<xs:sequence minOccurs="0">
+								<xs:element name="keyword_1" type="t_comment" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Genre keyword 1 for product</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:sequence minOccurs="0">
+									<xs:element name="keyword_2" type="t_comment" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Genre keyword 2 for product</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:sequence minOccurs="0">
+										<xs:element name="keyword_3" type="t_comment" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Genre keyword 3 for product</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:sequence minOccurs="0">
+											<xs:element name="keyword_4" type="t_comment" minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Genre keyword 4 for product</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="keyword_5" type="t_comment" minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Genre keyword 5 for product</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:sequence>
+								</xs:sequence>
+							</xs:sequence>
+                                                        <xs:element name="keyword_tags" type="t_vstring120" minOccurs="0">
+                                                                <xs:annotation>
+                                                                        <xs:documentation>Keyword tags for searching, etc. up to 120 characters 0020015006</xs:documentation>
+                                                                </xs:annotation>
+                                                        </xs:element>
+							<xs:element ref="tracks" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>List of tracks</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="artwork" type="t_artwork_picture" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Artwork - cover, front or booklet</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:group ref="g_system"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

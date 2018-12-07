@@ -1,0 +1,1 @@
+/opt/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner   -Dsonar.projectKey=phononet   -Dsonar.sources=./src -Dsonar.host.url=http://sonar.testdomain.tld:9000   -Dsonar.login=16fb7655039553a095fddd775fed2ec58f8938c8
