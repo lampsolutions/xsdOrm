@@ -11,6 +11,8 @@ require APP_ROOT . '/src/Ivdm/CliRoutes.php';
 
 $app->add(new \Ivdm\Middleware\CliRequest());
 
+error_reporting(E_ALL);
+
 //php cliRequest.php /initPhononetDatabase GET
 
 
