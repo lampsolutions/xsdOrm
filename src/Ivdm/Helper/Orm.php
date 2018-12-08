@@ -72,7 +72,7 @@ class Orm{
         $class_vars = get_class_vars($class);
         foreach($class_vars as $name => $value) {
             $this->addAttributeField($name,
-                $this->getTableNameFromClassname($class)
+                $this->getTableNameFromClassname($class),$this->getTypeFromClassAndAtribute($class,$name);
             );
         }
         $getter=get_class_methods($class);
@@ -85,6 +85,13 @@ class Orm{
                 );
             }
         }
+    }
+
+    protected function getTypeFromClassAndAtribute($class,$name){
+        var_dump($class,$name);
+        $rc = new ReflectionClass($class);
+        var_dump($rc);
+        die();
     }
 
     /**
