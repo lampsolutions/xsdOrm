@@ -4,13 +4,26 @@ namespace \Ivdm\Repository;
 class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
     /**
+     * @var PDO
+     */
+    protected $pdo = null;
+
+    protected $table;
+    protected $class;
+
+
+    public function __construct(\PDO $pPdo) {
+        $this->pdo=$pPdo;
+    }
+
+    /**
      * @param $property
      * @param $value
      * @return bool|mixed
      */
     public function find_single_item_by_property($property, $value) {
         if(!empty($value)
-            && !in_array($property, array_keys(get_object_vars(new $this->class($this->c))))) {
+            && !in_array($property, array_keys(get_object_vars(new $this->class())))) {
             return false;
         }
 
@@ -32,7 +45,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
      */
     public function find_multiple_by_property($property, $value, $order_key='id', $order_type='ASC') {
         if(!empty($value)
-            && !in_array($property, array_keys(get_object_vars(new $this->class($this->c))))) {
+            && !in_array($property, array_keys(get_object_vars(new $this->class())))) {
             return false;
         }
 
@@ -121,7 +134,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             $sth->bindParam(':id', $object->id, PDO::PARAM_INT);
             try {
                 $sth->execute();
-                $r = $sth->fetchObject($this->class, [$this->c]);
+                $r = $sth->fetchObject($this->class);
                 return $r;
             } catch (\Exception $e) {
                 return false;
@@ -145,7 +158,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         $sth = $this->pdo->prepare($sql);
         try {
             $sth->execute();
-            $result = $sth->fetchAll(PDO::FETCH_CLASS, $this->class, [$this->c]);
+            $result = $sth->fetchAll(PDO::FETCH_CLASS, $this->class);
             return $result;
         } catch(\Exception $e) {
 

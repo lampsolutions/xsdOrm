@@ -67,7 +67,7 @@ class Orm{
      * @param String $classname
      * @return String
      */
-    private function getTableNameFromClassname(String $classname) :String{
+    public static function getTableNameFromClassname(String $classname) :String{
 
         $simpleClassname=explode("\\",$classname);
         $simpleClassname=array_pop($simpleClassname);
