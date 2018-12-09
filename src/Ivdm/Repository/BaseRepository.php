@@ -1,5 +1,9 @@
 <?php
-namespace \Ivdm\Repository;
+namespace Ivdm\Repository;
+
+use Ivdm\Helper\Orm;
+use PDO;
+use ReflectionClass;
 
 class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
@@ -54,7 +58,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         $sth->bindParam(':val', $value, PDO::PARAM_STR);
         try {
             $sth->execute();
-            $r = $sth->fetchAll(PDO::FETCH_CLASS, $this->class, [$this->c]);
+            $r = $sth->fetchAll(PDO::FETCH_CLASS, $this->class);
             return $r;
         } catch(\Exception $e) {
             return false;
@@ -67,7 +71,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
         try {
             $sth->execute();
-            $r = $sth->fetchObject($this->class, [$this->c]);
+            $r = $sth->fetchObject($this->class);
             return $r;
         } catch(\Exception $e) {
 
@@ -91,6 +95,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
                 $bindings[$k] = $v;
             }
 
+
             $SQL = "UPDATE ".$this->table." SET ".implode(", ", $query)." WHERE id = :id";
             $sth = $this->pdo->prepare($SQL);
             if(null==$bindings[$k]) {
@@ -107,7 +112,12 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         } else {
             $query = [];
             $bindings = [];
-            foreach(get_object_vars($object) as $k => $v) {
+            $reflection = new ReflectionClass($object);
+            $properties = $reflection->getProperties();
+            foreach($properties as $property) {
+                $getter=Orm::getGetterForAttribute($property->getName());
+                $k=Orm::getColumnFromAttribute($property->getName());
+                $v=$object->$getter();
                 if($k == "id"  || is_object($v)) continue;
                 $query[] = "$k=:$k";
                 $bindings[$k] = $v;

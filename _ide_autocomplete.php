@@ -13,5 +13,15 @@ class Slim_AC_Container extends \Slim\Container {
      */
     public $orm;
 
+    /**
+     * @var \Ivdm\Phononet\Products\ProductAType
+     */
+    public $productAType;
+
+    /**
+     * @var \Ivdm\Repository\GeneralRepository
+     */
+    public $generalRepository;
+
 
 }

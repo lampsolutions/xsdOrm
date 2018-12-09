@@ -38,6 +38,27 @@ $container['orm'] = function ($container) {
     return new \Ivdm\Helper\Orm($container['pdo']);
 };
 
+$container['generalRepository'] = $container->factory(function ($container) {
+    return new \Ivdm\Repository\GeneralRepository($container['pdo']);
+});
+
+$container['productAType'] = $container->factory(function () {
+    return new \Ivdm\Phononet\Products\ProductAType();
+});
+
+
+/**
+ * @param \Slim\Container $c
+ * @return \Monolog\Logger
+ */
+$container['logger'] = function ($c) {
+    $settings = $c->get('settings')['logger'];
+    $logger = new Monolog\Logger($settings['name']);
+    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
+    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], Monolog\Logger::DEBUG));
+    return $logger;
+};
+
 
 
 

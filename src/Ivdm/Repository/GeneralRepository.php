@@ -3,7 +3,7 @@ namespace Ivdm\Repository;
 
 use Ivdm\Helper\Orm;
 
-class GeneralRepository extends \BaseRepository{
+class GeneralRepository extends BaseRepository{
 
 
     public function __construct(\PDO $pPdo) {

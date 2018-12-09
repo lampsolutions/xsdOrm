@@ -15,6 +15,7 @@ error_reporting(E_ALL);
 
 //php cliRequest.php /initPhononetDatabase GET
 
+//php cliRequest.php /doDailyImport GET
 
 
 

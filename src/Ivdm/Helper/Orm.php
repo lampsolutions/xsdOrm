@@ -195,5 +195,35 @@ class Orm{
         return count($result);
     }
 
+    public static function getSetterForAttribute(String $attribute){
+        return "set".self::dashesToCamelCase($attribute,true);
+    }
+
+    public static function getGetterForAttribute(String $attribute){
+        return "get".self::dashesToCamelCase($attribute,true);
+    }
+
+    public static function getColumnFromAttribute(String $attribute){
+        $converter = new CamelCaseToSnakeCaseNameConverter();
+        return $converter->normalize($attribute);
+
+    }
+
+    /**
+     * @param $string
+     * @param bool $capitalizeFirstCharacter
+     * @return mixed
+     */
+    public static function dashesToCamelCase($string, $capitalizeFirstCharacter = false) {
+
+    $str = str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
+
+    if (!$capitalizeFirstCharacter) {
+        $str[0] = strtolower($str[0]);
+    }
+
+    return $str;
+}
+
 
 }
