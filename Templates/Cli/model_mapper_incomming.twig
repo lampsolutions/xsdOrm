@@ -1,0 +1,8 @@
+
+    /**
+    * map {{attribute.attribute}}
+    * @param $targetObject
+    */
+    public function map{{attribute.method|capitalize}}Incommung(&$targetObject){
+        $this->{{attribute.attribute}}=$targetObject->get{{ attribute.mapping|capitalize}};
+    }

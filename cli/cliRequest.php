@@ -15,7 +15,8 @@ error_reporting(E_ALL);
 
 //php cliRequest.php /initPhononetDatabase GET
 
-//php cliRequest.php /doDailyImport GET
+//php cliRequest.php /generateModelFromCsv GET 'filename=../docs/mappings.csv&target=../src/Ivdm/Models/Audio.php'
+//php cliRequest.php /generateModelFromCsv GET 'filename=../docs/mappingsTrack.csv&target=../src/Ivdm/Models//Track.php'
 
 
 

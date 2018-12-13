@@ -1,0 +1,8 @@
+
+    /**
+    * map {{attribute.attribute}}
+    * @param $targetObject
+    */
+    public function map{{attribute.method|capitalize}}(&$targetObject){
+        $targetObject->{{ attribute.mapping}}=$this->{{attribute.attribute}};
+    }

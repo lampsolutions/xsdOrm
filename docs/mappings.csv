@@ -1,0 +1,51 @@
+"Felder Export CD-Datenbank Jakob / Phononet
+",,,,,,
+xml.tag ,Bezeichnung,Beschreibung,Anmerkung,Beispiel,Tag Bezeichnung Phononet,Referez Tag Phononet bei Tabellen
+ean,EAN Code,Eancode des Anbieters,"EAN oder UPC bzw. GTIN (entspricht dem Barcode
+des Produktes, alphanumerisch, EAN: 13- und 8-
+stellig, UPC: 12- und 7-stellig - ein UPC wird jeweils auf 13-Stellen mit einer ""0"" vorne aufgefüllt.",4045167014480,ean_upc,
+titel_lang,Titel lang,CD Titelbezeichnung,max. 256 Zeichen,The Romantic Violinist,title,
+title_addition,Titelergänzung,"Ergänzung zum Titel, beliebige Zusatzinformation zum
+Produkt",seltener gefüllt / max. 256 Zeichen,,title_addition,
+artikelgruppe,Artikelgruppe,Artikelgruppe,"Artikelgruppen: 
+Musik
+",Musik,,
+medium,Medium,"Datenträger wie CD, DVD, Blu-ray, Blu-ray 3D, Blu-ray 4K usw.","Tonträgerformat (alphanumerisch, 256-stellig)
+",CD,configuration ,configuration_number
+anbieter,Anbieter,Anbieterstudio,"PHONONET Kundenname
+max. 60 Zeichen",Universal Music,distributor_name,
+art_vertrieb,Artikelnummer des Vertriebs,Bestell- bzw. Artikelnummer des Vertriebs/Anbieters,,6476099 BR,"article_number",
+composer,Komponist,Komponist,max. 254 Zeichen,"HOPE,DANIEL",composer,
+artist,Künstler,Künstler des Artikels,"alphanumerisch, 50 Zeichen","HOPE,DANIEL",artist,
+article_info,Allgemeine Produktinformationen,Allgemeine Produktinformationen,,max. 1024 Zeichen,article_info,
+label,Label,Name des Labels,"Labelname (120 Zeichen, alphanumerisch)",,label_name,
+voe_datum,VÖ-Datum,Veröffentlichungsdatum ,"Veröffentlichungsdatum (frühestmögliches
+Kaufdatum)", 2011-03-04,physical_release_date,
+letzt_aenderung,letzte Änderung,letzte Änderung am Artikel - Datum,Hier wird die letzte Änderung am Artikel dokumentiert,12.03.2016,date_of_change,
+packing_unit,Verpackungseinheit,"Verpackungseinheit, entspricht der Abgabeeinheit
+des Lieferanten: Inhalt pro Standard-
+Verpackungseinheit in Stück (numerisch, 5-stellig)",,,packing_unit,
+discanzahl,Anzahl Discs,"Set-Inhalt (Anzahl der Tonträger im Set, numerisch, 3-
+stellig)",Ziffer,1,set_total,
+hauptgenre,Hauptgenre,Hauptgenre (hier wird die Grundrichtung noch spezifiziert),Einzelauflistung bei mehreren Genres,"<hauptgenre_item>Sonstige Klassik</hauptgenre_item>
+<hauptgenre_item>Sonstige Klassik</hauptgenre_item>",genre  ,genre_code
+Keyword_1,Bis zu fünf Genre-Schlagwörter / Keywords,"Bis zu fünf Genre-Schlagwörter für ein Produkt
+möglich (Angabe in Nummerncodes, 10-stellig)",Codeliste siehe unter www.phononet.de,,keyword_1,"keyword_code_1 bis
+keyword_code_5"
+Keyword_2,Bis zu fünf Genre-Schlagwörter / Keywords,"Bis zu fünf Genre-Schlagwörter für ein Produkt
+möglich (Angabe in Nummerncodes, 10-stellig)",Codeliste siehe unter www.phononet.de,,Keyword_2,"keyword_code_1 bis
+keyword_code_5"
+Keyword_3,Bis zu fünf Genre-Schlagwörter / Keywords,"Bis zu fünf Genre-Schlagwörter für ein Produkt
+möglich (Angabe in Nummerncodes, 10-stellig)",Codeliste siehe unter www.phononet.de,,Keyword_3,"keyword_code_1 bis
+keyword_code_5"
+Keyword_4,Bis zu fünf Genre-Schlagwörter / Keywords,"Bis zu fünf Genre-Schlagwörter für ein Produkt
+möglich (Angabe in Nummerncodes, 10-stellig)",Codeliste siehe unter www.phononet.de,,Keyword_4,"keyword_code_1 bis
+keyword_code_5"
+Keyword_5,Bis zu fünf Genre-Schlagwörter / Keywords,"Bis zu fünf Genre-Schlagwörter für ein Produkt
+möglich (Angabe in Nummerncodes, 10-stellig)",Codeliste siehe unter www.phononet.de,,Keyword_5,"keyword_code_1 bis
+keyword_code_5"
+cover_vorne,Coverfront,Bild Cover (Vorderseite) / Frontcover / Packshot,max. 600px Größe,,"artwork[0]",
+cover_hinten,Coverback,Bild Rückcover (Rückseite) / Backcover / Packshot,,,"artwork[1]",
+number_of_tracks,Anzahl der Tracks auf dem Medium,,,"Anzahl der Tracks für dieses Produkt (numerisch, 3-
+stellig)",number_of_tracks,
+playtime,Track- oder Gesamtspieldauer ,,Track- oder Gesamtspieldauer (mmmss),092:36,playtime,
