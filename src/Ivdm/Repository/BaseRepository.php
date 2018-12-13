@@ -175,4 +175,40 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             return false;
         }
     }
+
+
+    private function getAllFieldsWithValues($object){
+        $reflection = new ReflectionClass($object);
+        $properties = $reflection->getProperties();
+        $bindings=[];
+        foreach($properties as $property) {
+            $getter=Orm::getGetterForAttribute($property->getName());
+            $k=Orm::getColumnFromAttribute($property->getName());
+            $v=$object->$getter();
+            if($k == "id"  || is_object($v)) continue;
+            $query[] = "$k=:$k";
+            $bindings[$k] = $v;
+        }
+        return $bindings;
+    }
+
+    public function toXml($objects,$root){
+            $xml=new \SimpleXMLElement("<?xml version='1.0' standalone='yes'?><$root></$root>");
+            foreach ($objects as $object) {
+                $element=$xml->addChild(get_class($object));
+                foreach ($this->getAllFieldsWithValues($object) as $key => $value) {
+                    if (strpos($value,",")) {
+                        $field=$element->addChild($key);
+                        foreach (explode(",", $value) as $element) {
+                            $field->addChild($key."_item", $element);
+                        }
+                    }
+                    else {
+                        $element->addChild($key, $value);
+                    }
+                }
+            }
+            return $xml->asXML();
+
+    }
 }
