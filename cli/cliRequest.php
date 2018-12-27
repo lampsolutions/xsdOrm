@@ -19,5 +19,8 @@ error_reporting(E_ALL);
 //php cliRequest.php /generateModelFromCsv GET 'filename=../docs/mappingsTrack.csv&target=../src/Ivdm/Models//Track.php'
 
 
+//php cliRequest.php /doDailyExport GET
+
+
 
 $app->run();

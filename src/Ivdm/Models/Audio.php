@@ -286,27 +286,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapEan(&$targetObject){
-        $targetObject->eanUpc=$this->ean;
+        $targetObject->seteanUpc($this->ean);
     }
             
     /**
     * map ean
     * @param $targetObject
     */
-    public function mapEanIncommung(&$targetObject){
-        $this->ean=$targetObject->getEanupc;
+    public function mapEanIncomming(&$targetObject){
+        $this->ean=$targetObject->getEanupc();
     }
                         /**
     * get titel_lang
     */
-    public function getTitel_lang(){
+    public function getTitellang(){
         return $this->titel_lang;
     }        
     /**
     * set titel_lang
     * @param $pTitel_lang
     */
-    public function setTitel_lang($pTitel_lang){
+    public function setTitellang($pTitel_lang){
         $this->titel_lang=$pTitel_lang;
     }
                     
@@ -315,27 +315,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapTitellang(&$targetObject){
-        $targetObject->title=$this->titel_lang;
+        $targetObject->settitle($this->titel_lang);
     }
             
     /**
     * map titel_lang
     * @param $targetObject
     */
-    public function mapTitellangIncommung(&$targetObject){
-        $this->titel_lang=$targetObject->getTitle;
+    public function mapTitellangIncomming(&$targetObject){
+        $this->titel_lang=$targetObject->getTitle();
     }
                         /**
     * get title_addition
     */
-    public function getTitle_addition(){
+    public function getTitleaddition(){
         return $this->title_addition;
     }        
     /**
     * set title_addition
     * @param $pTitle_addition
     */
-    public function setTitle_addition($pTitle_addition){
+    public function setTitleaddition($pTitle_addition){
         $this->title_addition=$pTitle_addition;
     }
                     
@@ -344,15 +344,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapTitleaddition(&$targetObject){
-        $targetObject->titleAddition=$this->title_addition;
+        $targetObject->settitleAddition($this->title_addition);
     }
             
     /**
     * map title_addition
     * @param $targetObject
     */
-    public function mapTitleadditionIncommung(&$targetObject){
-        $this->title_addition=$targetObject->getTitleaddition;
+    public function mapTitleadditionIncomming(&$targetObject){
+        $this->title_addition=$targetObject->getTitleaddition();
     }
                         /**
     * get artikelgruppe
@@ -366,6 +366,22 @@ class Audio {
     */
     public function setArtikelgruppe($pArtikelgruppe){
         $this->artikelgruppe=$pArtikelgruppe;
+    }
+                    
+    /**
+    * map artikelgruppe
+    * @param $targetObject
+    */
+    public function mapArtikelgruppe(&$targetObject){
+        $targetObject->set($this->artikelgruppe);
+    }
+            
+    /**
+    * map artikelgruppe
+    * @param $targetObject
+    */
+    public function mapArtikelgruppeIncomming(&$targetObject){
+        $this->artikelgruppe=$targetObject->get();
     }
                         /**
     * get medium
@@ -386,15 +402,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapMedium(&$targetObject){
-        $targetObject->configuration=$this->medium;
+        $targetObject->setconfiguration($this->medium);
     }
             
     /**
     * map medium
     * @param $targetObject
     */
-    public function mapMediumIncommung(&$targetObject){
-        $this->medium=$targetObject->getConfiguration;
+    public function mapMediumIncomming(&$targetObject){
+        $this->medium=$targetObject->getConfiguration();
     }
                         /**
     * get anbieter
@@ -415,27 +431,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapAnbieter(&$targetObject){
-        $targetObject->distributorName=$this->anbieter;
+        $targetObject->setdistributorName($this->anbieter);
     }
             
     /**
     * map anbieter
     * @param $targetObject
     */
-    public function mapAnbieterIncommung(&$targetObject){
-        $this->anbieter=$targetObject->getDistributorname;
+    public function mapAnbieterIncomming(&$targetObject){
+        $this->anbieter=$targetObject->getDistributorname();
     }
                         /**
     * get art_vertrieb
     */
-    public function getArt_vertrieb(){
+    public function getArtvertrieb(){
         return $this->art_vertrieb;
     }        
     /**
     * set art_vertrieb
     * @param $pArt_vertrieb
     */
-    public function setArt_vertrieb($pArt_vertrieb){
+    public function setArtvertrieb($pArt_vertrieb){
         $this->art_vertrieb=$pArt_vertrieb;
     }
                     
@@ -444,15 +460,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapArtvertrieb(&$targetObject){
-        $targetObject->articleNumber=$this->art_vertrieb;
+        $targetObject->setarticleNumber($this->art_vertrieb);
     }
             
     /**
     * map art_vertrieb
     * @param $targetObject
     */
-    public function mapArtvertriebIncommung(&$targetObject){
-        $this->art_vertrieb=$targetObject->getArticlenumber;
+    public function mapArtvertriebIncomming(&$targetObject){
+        $this->art_vertrieb=$targetObject->getArticlenumber();
     }
                         /**
     * get composer
@@ -473,15 +489,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapComposer(&$targetObject){
-        $targetObject->composer=$this->composer;
+        $targetObject->setcomposer($this->composer);
     }
             
     /**
     * map composer
     * @param $targetObject
     */
-    public function mapComposerIncommung(&$targetObject){
-        $this->composer=$targetObject->getComposer;
+    public function mapComposerIncomming(&$targetObject){
+        $this->composer=$targetObject->getComposer();
     }
                         /**
     * get artist
@@ -502,27 +518,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapArtist(&$targetObject){
-        $targetObject->artist=$this->artist;
+        $targetObject->setartist($this->artist);
     }
             
     /**
     * map artist
     * @param $targetObject
     */
-    public function mapArtistIncommung(&$targetObject){
-        $this->artist=$targetObject->getArtist;
+    public function mapArtistIncomming(&$targetObject){
+        $this->artist=$targetObject->getArtist();
     }
                         /**
     * get article_info
     */
-    public function getArticle_info(){
+    public function getArticleinfo(){
         return $this->article_info;
     }        
     /**
     * set article_info
     * @param $pArticle_info
     */
-    public function setArticle_info($pArticle_info){
+    public function setArticleinfo($pArticle_info){
         $this->article_info=$pArticle_info;
     }
                     
@@ -531,15 +547,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapArticleinfo(&$targetObject){
-        $targetObject->articleInfo=$this->article_info;
+        $targetObject->setarticleInfo($this->article_info);
     }
             
     /**
     * map article_info
     * @param $targetObject
     */
-    public function mapArticleinfoIncommung(&$targetObject){
-        $this->article_info=$targetObject->getArticleinfo;
+    public function mapArticleinfoIncomming(&$targetObject){
+        $this->article_info=$targetObject->getArticleinfo();
     }
                         /**
     * get label
@@ -560,27 +576,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapLabel(&$targetObject){
-        $targetObject->labelName=$this->label;
+        $targetObject->setlabelName($this->label);
     }
             
     /**
     * map label
     * @param $targetObject
     */
-    public function mapLabelIncommung(&$targetObject){
-        $this->label=$targetObject->getLabelname;
+    public function mapLabelIncomming(&$targetObject){
+        $this->label=$targetObject->getLabelname();
     }
                         /**
     * get voe_datum
     */
-    public function getVoe_datum(){
+    public function getVoedatum(){
         return $this->voe_datum;
     }        
     /**
     * set voe_datum
     * @param $pVoe_datum
     */
-    public function setVoe_datum($pVoe_datum){
+    public function setVoedatum($pVoe_datum){
         $this->voe_datum=$pVoe_datum;
     }
                     
@@ -589,27 +605,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapVoedatum(&$targetObject){
-        $targetObject->physicalReleaseDate=$this->voe_datum;
+        $targetObject->setphysicalReleaseDate($this->voe_datum);
     }
             
     /**
     * map voe_datum
     * @param $targetObject
     */
-    public function mapVoedatumIncommung(&$targetObject){
-        $this->voe_datum=$targetObject->getPhysicalreleasedate;
+    public function mapVoedatumIncomming(&$targetObject){
+        $this->voe_datum=$targetObject->getPhysicalreleasedate();
     }
                         /**
     * get letzt_aenderung
     */
-    public function getLetzt_aenderung(){
+    public function getLetztaenderung(){
         return $this->letzt_aenderung;
     }        
     /**
     * set letzt_aenderung
     * @param $pLetzt_aenderung
     */
-    public function setLetzt_aenderung($pLetzt_aenderung){
+    public function setLetztaenderung($pLetzt_aenderung){
         $this->letzt_aenderung=$pLetzt_aenderung;
     }
                     
@@ -618,27 +634,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapLetztaenderung(&$targetObject){
-        $targetObject->dateOfChange=$this->letzt_aenderung;
+        $targetObject->setdateOfChange($this->letzt_aenderung);
     }
             
     /**
     * map letzt_aenderung
     * @param $targetObject
     */
-    public function mapLetztaenderungIncommung(&$targetObject){
-        $this->letzt_aenderung=$targetObject->getDateofchange;
+    public function mapLetztaenderungIncomming(&$targetObject){
+        $this->letzt_aenderung=$targetObject->getDateofchange();
     }
                         /**
     * get packing_unit
     */
-    public function getPacking_unit(){
+    public function getPackingunit(){
         return $this->packing_unit;
     }        
     /**
     * set packing_unit
     * @param $pPacking_unit
     */
-    public function setPacking_unit($pPacking_unit){
+    public function setPackingunit($pPacking_unit){
         $this->packing_unit=$pPacking_unit;
     }
                     
@@ -647,15 +663,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapPackingunit(&$targetObject){
-        $targetObject->packingUnit=$this->packing_unit;
+        $targetObject->setpackingUnit($this->packing_unit);
     }
             
     /**
     * map packing_unit
     * @param $targetObject
     */
-    public function mapPackingunitIncommung(&$targetObject){
-        $this->packing_unit=$targetObject->getPackingunit;
+    public function mapPackingunitIncomming(&$targetObject){
+        $this->packing_unit=$targetObject->getPackingunit();
     }
                         /**
     * get discanzahl
@@ -676,15 +692,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapDiscanzahl(&$targetObject){
-        $targetObject->setTotal=$this->discanzahl;
+        $targetObject->setsetTotal($this->discanzahl);
     }
             
     /**
     * map discanzahl
     * @param $targetObject
     */
-    public function mapDiscanzahlIncommung(&$targetObject){
-        $this->discanzahl=$targetObject->getSettotal;
+    public function mapDiscanzahlIncomming(&$targetObject){
+        $this->discanzahl=$targetObject->getSettotal();
     }
                         /**
     * get hauptgenre
@@ -705,27 +721,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapHauptgenre(&$targetObject){
-        $targetObject->genre=$this->hauptgenre;
+        $targetObject->setgenre($this->hauptgenre);
     }
             
     /**
     * map hauptgenre
     * @param $targetObject
     */
-    public function mapHauptgenreIncommung(&$targetObject){
-        $this->hauptgenre=$targetObject->getGenre;
+    public function mapHauptgenreIncomming(&$targetObject){
+        $this->hauptgenre=$targetObject->getGenre();
     }
                         /**
     * get Keyword_1
     */
-    public function getKeyword_1(){
+    public function getKeyword1(){
         return $this->Keyword_1;
     }        
     /**
     * set Keyword_1
     * @param $pKeyword_1
     */
-    public function setKeyword_1($pKeyword_1){
+    public function setKeyword1($pKeyword_1){
         $this->Keyword_1=$pKeyword_1;
     }
                     
@@ -734,27 +750,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapKeyword1(&$targetObject){
-        $targetObject->keyword1=$this->Keyword_1;
+        $targetObject->setkeyword1($this->Keyword_1);
     }
             
     /**
     * map Keyword_1
     * @param $targetObject
     */
-    public function mapKeyword1Incommung(&$targetObject){
-        $this->Keyword_1=$targetObject->getKeyword1;
+    public function mapKeyword1Incomming(&$targetObject){
+        $this->Keyword_1=$targetObject->getKeyword1();
     }
                         /**
     * get Keyword_2
     */
-    public function getKeyword_2(){
+    public function getKeyword2(){
         return $this->Keyword_2;
     }        
     /**
     * set Keyword_2
     * @param $pKeyword_2
     */
-    public function setKeyword_2($pKeyword_2){
+    public function setKeyword2($pKeyword_2){
         $this->Keyword_2=$pKeyword_2;
     }
                     
@@ -763,27 +779,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapKeyword2(&$targetObject){
-        $targetObject->keyword2=$this->Keyword_2;
+        $targetObject->setkeyword2($this->Keyword_2);
     }
             
     /**
     * map Keyword_2
     * @param $targetObject
     */
-    public function mapKeyword2Incommung(&$targetObject){
-        $this->Keyword_2=$targetObject->getKeyword2;
+    public function mapKeyword2Incomming(&$targetObject){
+        $this->Keyword_2=$targetObject->getKeyword2();
     }
                         /**
     * get Keyword_3
     */
-    public function getKeyword_3(){
+    public function getKeyword3(){
         return $this->Keyword_3;
     }        
     /**
     * set Keyword_3
     * @param $pKeyword_3
     */
-    public function setKeyword_3($pKeyword_3){
+    public function setKeyword3($pKeyword_3){
         $this->Keyword_3=$pKeyword_3;
     }
                     
@@ -792,27 +808,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapKeyword3(&$targetObject){
-        $targetObject->keyword3=$this->Keyword_3;
+        $targetObject->setkeyword3($this->Keyword_3);
     }
             
     /**
     * map Keyword_3
     * @param $targetObject
     */
-    public function mapKeyword3Incommung(&$targetObject){
-        $this->Keyword_3=$targetObject->getKeyword3;
+    public function mapKeyword3Incomming(&$targetObject){
+        $this->Keyword_3=$targetObject->getKeyword3();
     }
                         /**
     * get Keyword_4
     */
-    public function getKeyword_4(){
+    public function getKeyword4(){
         return $this->Keyword_4;
     }        
     /**
     * set Keyword_4
     * @param $pKeyword_4
     */
-    public function setKeyword_4($pKeyword_4){
+    public function setKeyword4($pKeyword_4){
         $this->Keyword_4=$pKeyword_4;
     }
                     
@@ -821,27 +837,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapKeyword4(&$targetObject){
-        $targetObject->keyword4=$this->Keyword_4;
+        $targetObject->setkeyword4($this->Keyword_4);
     }
             
     /**
     * map Keyword_4
     * @param $targetObject
     */
-    public function mapKeyword4Incommung(&$targetObject){
-        $this->Keyword_4=$targetObject->getKeyword4;
+    public function mapKeyword4Incomming(&$targetObject){
+        $this->Keyword_4=$targetObject->getKeyword4();
     }
                         /**
     * get Keyword_5
     */
-    public function getKeyword_5(){
+    public function getKeyword5(){
         return $this->Keyword_5;
     }        
     /**
     * set Keyword_5
     * @param $pKeyword_5
     */
-    public function setKeyword_5($pKeyword_5){
+    public function setKeyword5($pKeyword_5){
         $this->Keyword_5=$pKeyword_5;
     }
                     
@@ -850,27 +866,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapKeyword5(&$targetObject){
-        $targetObject->keyword5=$this->Keyword_5;
+        $targetObject->setkeyword5($this->Keyword_5);
     }
             
     /**
     * map Keyword_5
     * @param $targetObject
     */
-    public function mapKeyword5Incommung(&$targetObject){
-        $this->Keyword_5=$targetObject->getKeyword5;
+    public function mapKeyword5Incomming(&$targetObject){
+        $this->Keyword_5=$targetObject->getKeyword5();
     }
                         /**
     * get cover_vorne
     */
-    public function getCover_vorne(){
+    public function getCovervorne(){
         return $this->cover_vorne;
     }        
     /**
     * set cover_vorne
     * @param $pCover_vorne
     */
-    public function setCover_vorne($pCover_vorne){
+    public function setCovervorne($pCover_vorne){
         $this->cover_vorne=$pCover_vorne;
     }
                     
@@ -879,27 +895,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapCovervorne(&$targetObject){
-        $targetObject->artwork[0]=$this->cover_vorne;
+        $targetObject->setartwork[0]($this->cover_vorne);
     }
             
     /**
     * map cover_vorne
     * @param $targetObject
     */
-    public function mapCovervorneIncommung(&$targetObject){
-        $this->cover_vorne=$targetObject->getArtwork[0];
+    public function mapCovervorneIncomming(&$targetObject){
+        $this->cover_vorne=$targetObject->getArtwork()[0];
     }
                         /**
     * get cover_hinten
     */
-    public function getCover_hinten(){
+    public function getCoverhinten(){
         return $this->cover_hinten;
     }        
     /**
     * set cover_hinten
     * @param $pCover_hinten
     */
-    public function setCover_hinten($pCover_hinten){
+    public function setCoverhinten($pCover_hinten){
         $this->cover_hinten=$pCover_hinten;
     }
                     
@@ -908,27 +924,27 @@ class Audio {
     * @param $targetObject
     */
     public function mapCoverhinten(&$targetObject){
-        $targetObject->artwork[1]=$this->cover_hinten;
+        $targetObject->setartwork[1]($this->cover_hinten);
     }
             
     /**
     * map cover_hinten
     * @param $targetObject
     */
-    public function mapCoverhintenIncommung(&$targetObject){
-        $this->cover_hinten=$targetObject->getArtwork[1];
+    public function mapCoverhintenIncomming(&$targetObject){
+        $this->cover_hinten=$targetObject->getArtwork()[1];
     }
                         /**
     * get number_of_tracks
     */
-    public function getNumber_of_tracks(){
+    public function getNumberoftracks(){
         return $this->number_of_tracks;
     }        
     /**
     * set number_of_tracks
     * @param $pNumber_of_tracks
     */
-    public function setNumber_of_tracks($pNumber_of_tracks){
+    public function setNumberoftracks($pNumber_of_tracks){
         $this->number_of_tracks=$pNumber_of_tracks;
     }
                     
@@ -937,18 +953,17 @@ class Audio {
     * @param $targetObject
     */
     public function mapNumberoftracks(&$targetObject){
-        $targetObject->numberOfTracks=$this->number_of_tracks;
+        $targetObject->setnumberOfTracks($this->number_of_tracks);
     }
             
     /**
     * map number_of_tracks
     * @param $targetObject
     */
-    public function mapNumberoftracksIncommung(&$targetObject){
-        $this->number_of_tracks=$targetObject->getNumberoftracks;
+    public function mapNumberoftracksIncomming(&$targetObject){
+        $this->number_of_tracks=$targetObject->getNumberoftracks();
     }
-
-    /**
+                        /**
     * get playtime
     */
     public function getPlaytime(){
@@ -967,15 +982,15 @@ class Audio {
     * @param $targetObject
     */
     public function mapPlaytime(&$targetObject){
-        $targetObject->playtime=$this->playtime;
+        $targetObject->setplaytime($this->playtime);
     }
             
     /**
     * map playtime
     * @param $targetObject
     */
-    public function mapPlaytimeIncommung(&$targetObject){
-        $this->playtime=$targetObject->getPlaytime;
+    public function mapPlaytimeIncomming(&$targetObject){
+        $this->playtime=$targetObject->getPlaytime();
     }
             
 

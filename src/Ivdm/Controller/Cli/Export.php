@@ -2,35 +2,56 @@
 namespace Ivdm\Controller\Cli;
 
 
+use DOMDocument;
 use Ivdm\Controller\BaseController;
 use Ivdm\Helper\Orm;
+use Ivdm\Repository\AudioRepository;
 use ReflectionClass;
 
 class Export extends BaseController{
 
-    public function doDailyImport()
-    {
+    public function doDailyExport() {
+        $product = $this->c->productAType;
+        $productRepository=$this->c->generalRepository;
 
-        foreach (glob(APP_ROOT . "/var/*.xml") as $filename) {
-            $this->importFromFile($filename);
-        }
+        $productRepository->setClassAndTable(get_class($product));
+
+        $this->articlesToXml($productRepository->findAll(),"products",$productRepository);
 
     }
 
-    protected function importFromFile($filename)
-    {
-        $this->c->logger->info("Reading from " . $filename);
-        stream_filter_register('xmlutf8', '\Ivdm\Helper\ValidUTF8XMLFilter');
-        $xml = simplexml_load_file("php://filter/read=xmlutf8/resource=" . $filename);
-        $elements = $xml->count();
-        $i = 0;
-        $j = 0;
-        foreach ($xml as $xmlElement) {
-            $product = $this->c->productAType;
-            $productRepository = $this->c->generalRepository;
-            $productRepository->setClassAndTable(get_class($product));
-            $this->simpleXml2Object($xmlElement, $product);
-            $productRepository->save($product);
+    /**
+     * @param $articles
+     * @param $root
+     * @throws \Interop\Container\Exception\ContainerException
+     * @throws \ReflectionException
+     */
+    protected function articlesToXml($articles, $root,$repository) {
+
+        $filename=APP_ROOT.DIRECTORY_SEPARATOR."var/export/".date("Y-m-d-His")."_export.xml";
+
+        $xml=new \SimpleXMLElement("<?xml version='1.0' standalone='yes'?><".$root."></".$root.">");
+        foreach ($articles as $article) {
+
+            $repo = new AudioRepository();
+            $audio=$repo->mapElementsFromPhonoet($article,$repository);
+
+            $element=$xml->addChild(Orm::getTableNameFromClassname(get_class($audio)));
+            $reflection = new ReflectionClass($audio);
+            $properties=$reflection->getProperties();
+            foreach($properties as $property) {
+                $getter=Orm::getGetterForAttribute($property->getName());
+                $key=Orm::getColumnFromAttribute($property->getName());
+                $value=$audio->$getter();
+                $element->addChild($key,htmlspecialchars($value));
+            }
+
         }
+        $dom = new DOMDocument("1.0");
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml->asXML());
+        $dom->save($filename);
+
     }
 }

@@ -111,16 +111,9 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             return $this->find_by_id($object->id, true);
         } else {
             $query = [];
-            $bindings = [];
-            $reflection = new ReflectionClass($object);
-            $properties = $reflection->getProperties();
-            foreach($properties as $property) {
-                $getter=Orm::getGetterForAttribute($property->getName());
-                $k=Orm::getColumnFromAttribute($property->getName());
-                $v=$object->$getter();
-                if($k == "id"  || is_object($v)) continue;
-                $query[] = "$k=:$k";
-                $bindings[$k] = $v;
+            $bindings = $this->getPropertiesAsArray($object);
+            foreach(array_keys($bindings) as $key){
+                $query[] = "$key=:$key";
             }
 
             $SQL = "INSERT INTO ".$this->table." SET ".implode(", ", $query);
@@ -131,6 +124,20 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             }
             return $this->find_by_id($this->pdo->lastInsertId());
         }
+    }
+
+    public function getPropertiesAsArray($object){
+        $reflection = new ReflectionClass($object);
+        $properties = $reflection->getProperties();
+        foreach($properties as $property) {
+            $getter=Orm::getGetterForAttribute($property->getName());
+            $k=Orm::getColumnFromAttribute($property->getName());
+            $v=$object->$getter();
+            if($k == "id"  || is_object($v)) continue;
+            $query[] = "$k=:$k";
+            $bindings[$k] = $v;
+        }
+        return  $bindings;
     }
 
     /**

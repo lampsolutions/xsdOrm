@@ -261,14 +261,14 @@ class Track {
                         /**
     * get main_publisher
     */
-    public function getMain_publisher(){
+    public function getMainpublisher(){
         return $this->main_publisher;
     }        
     /**
     * set main_publisher
     * @param $pMain_publisher
     */
-    public function setMain_publisher($pMain_publisher){
+    public function setMainpublisher($pMain_publisher){
         $this->main_publisher=$pMain_publisher;
     }
                     
@@ -290,14 +290,14 @@ class Track {
                         /**
     * get main_artist
     */
-    public function getMain_artist(){
+    public function getMainartist(){
         return $this->main_artist;
     }        
     /**
     * set main_artist
     * @param $pMain_artist
     */
-    public function setMain_artist($pMain_artist){
+    public function setMainartist($pMain_artist){
         $this->main_artist=$pMain_artist;
     }
                     
@@ -377,14 +377,14 @@ class Track {
                         /**
     * get is_live
     */
-    public function getIs_live(){
+    public function getIslive(){
         return $this->is_live;
     }        
     /**
     * set is_live
     * @param $pIs_live
     */
-    public function setIs_live($pIs_live){
+    public function setIslive($pIs_live){
         $this->is_live=$pIs_live;
     }
                     

@@ -203,10 +203,13 @@ class Orm{
         return "get".self::dashesToCamelCase($attribute,true);
     }
 
+    public static function getMapperIncommingForAttribute(String $attribute){
+        return "map".self::dashesToCamelCase($attribute,true)."Incomming";
+    }
+
     public static function getColumnFromAttribute(String $attribute){
         $converter = new CamelCaseToSnakeCaseNameConverter();
         return $converter->normalize($attribute);
-
     }
 
     /**

@@ -12,6 +12,11 @@ class GeneralRepository extends BaseRepository{
 
     public function setClassAndTable($classname){
         $this->class=$classname;
-        $this->table=Orm::getTableNameFromClassname($classname);
+        $this->table=Orm::getTableNameFromClassname($this->class);
+    }
+
+    public function setClassAndTableFromObject($object){
+        $this->class=get_class($object);
+        $this->table=Orm::getTableNameFromClassname($this->class);
     }
 }
