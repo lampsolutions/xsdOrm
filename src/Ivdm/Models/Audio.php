@@ -252,6 +252,14 @@ class Audio {
 
             
     /**
+    * Tracks
+ 	* 
+ 	* 
+    */
+    protected $tracks;
+
+            
+    /**
     * Anzahl der Tracks auf dem Medium
  	* 
  	* 
@@ -366,22 +374,6 @@ class Audio {
     */
     public function setArtikelgruppe($pArtikelgruppe){
         $this->artikelgruppe=$pArtikelgruppe;
-    }
-                    
-    /**
-    * map artikelgruppe
-    * @param $targetObject
-    */
-    public function mapArtikelgruppe(&$targetObject){
-        $targetObject->set($this->artikelgruppe);
-    }
-            
-    /**
-    * map artikelgruppe
-    * @param $targetObject
-    */
-    public function mapArtikelgruppeIncomming(&$targetObject){
-        $this->artikelgruppe=$targetObject->get();
     }
                         /**
     * get medium
@@ -586,7 +578,8 @@ class Audio {
     public function mapLabelIncomming(&$targetObject){
         $this->label=$targetObject->getLabelname();
     }
-                        /**
+
+    /**
     * get voe_datum
     */
     public function getVoedatum(){
@@ -934,6 +927,36 @@ class Audio {
     public function mapCoverhintenIncomming(&$targetObject){
         $this->cover_hinten=$targetObject->getArtwork()[1];
     }
+
+    /**
+    * get tracks
+    */
+    public function getTracks(){
+        return $this->tracks;
+    }        
+    /**
+    * set tracks
+    * @param $pTracks Tracks
+    */
+    public function setTracks($pTracks){
+        $this->tracks=$pTracks;
+    }
+                    
+    /**
+    * map tracks
+    * @param $targetObject
+    */
+    public function mapTracks(&$targetObject){
+        $targetObject->settracks($this->tracks);
+    }
+            
+    /**
+    * map tracks
+    * @param $targetObject
+    */
+    public function mapTracksIncomming(&$targetObject){
+        $this->tracks=$targetObject->getTracks();
+    }
                         /**
     * get number_of_tracks
     */
@@ -947,22 +970,6 @@ class Audio {
     public function setNumberoftracks($pNumber_of_tracks){
         $this->number_of_tracks=$pNumber_of_tracks;
     }
-                    
-    /**
-    * map number_of_tracks
-    * @param $targetObject
-    */
-    public function mapNumberoftracks(&$targetObject){
-        $targetObject->setnumberOfTracks($this->number_of_tracks);
-    }
-            
-    /**
-    * map number_of_tracks
-    * @param $targetObject
-    */
-    public function mapNumberoftracksIncomming(&$targetObject){
-        $this->number_of_tracks=$targetObject->getNumberoftracks();
-    }
                         /**
     * get playtime
     */
@@ -975,22 +982,6 @@ class Audio {
     */
     public function setPlaytime($pPlaytime){
         $this->playtime=$pPlaytime;
-    }
-                    
-    /**
-    * map playtime
-    * @param $targetObject
-    */
-    public function mapPlaytime(&$targetObject){
-        $targetObject->setplaytime($this->playtime);
-    }
-            
-    /**
-    * map playtime
-    * @param $targetObject
-    */
-    public function mapPlaytimeIncomming(&$targetObject){
-        $this->playtime=$targetObject->getPlaytime();
     }
             
 

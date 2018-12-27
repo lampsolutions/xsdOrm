@@ -46,6 +46,13 @@ $container['productAType'] = $container->factory(function () {
     return new \Ivdm\Phononet\Products\ProductAType();
 });
 
+$container['tracks'] = $container->factory(function () {
+    return new \Ivdm\Phononet\Tracks();
+});
+
+$container['track'] = $container->factory(function () {
+    return new \Ivdm\Phononet\Track;
+});
 
 /**
  * @param \Slim\Container $c

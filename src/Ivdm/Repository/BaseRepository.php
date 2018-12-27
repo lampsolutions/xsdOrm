@@ -88,21 +88,35 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             if(!$existing) return false;
 
             $query = [];
-            $bindings = [];
-            foreach(get_object_vars($object) as $k => $v) {
-                if($k == "id" || is_object($v)) continue;
-                $query[] = "$k=:$k";
-                $bindings[$k] = $v;
+            $bindings = $this->getPropertiesAsArray($object);
+            foreach(array_keys($bindings) as $key){
+                $query[] = "$key=:$key";
             }
+
 
 
             $SQL = "UPDATE ".$this->table." SET ".implode(", ", $query)." WHERE id = :id";
             $sth = $this->pdo->prepare($SQL);
-            if(null==$bindings[$k]) {
-                $bindings[$k]="";
-            }
-            foreach ($bindings as $k => $v) {
-                $sth->bindParam(':'.$k, $bindings[$k]);
+
+            foreach($bindings as $k => $v){
+                if(is_array($bindings[$k])){
+                    $elemts=count($bindings[$k]);
+                    $sth->bindParam(':'.$k, $elemts);
+                    foreach($bindings[$k] as $element){
+                        if(@$element->id>0){
+                            $reflect = new ReflectionClass($element);
+                            $foreign_table=strtolower($reflect->getShortName());
+                            $this->addMM($object->id,$element->id,$foreign_table);
+                        }
+                    }
+                }
+                else if(is_object($bindings[$k])){
+                    $ref=$bindings[$k]->id;
+                    $sth->bindParam(':'.$k,$ref);
+                }
+                else{
+                    $sth->bindParam(':'.$k, $bindings[$k]);
+                }
             }
             $sth->bindParam(':id', $object->id, PDO::PARAM_INT);
             if(!$sth->execute()) {
@@ -118,12 +132,66 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
             $SQL = "INSERT INTO ".$this->table." SET ".implode(", ", $query);
             $sth = $this->pdo->prepare($SQL);
-            foreach($bindings as $k => $v) $sth->bindParam(':'.$k, $bindings[$k]);
+            foreach($bindings as $k => $v){
+                if(is_array($bindings[$k])){
+                    $elements=count($bindings[$k]);
+                    $sth->bindParam(':'.$k, $elements);
+
+                }
+                else if(is_object($bindings[$k])){
+                    $ref=$bindings[$k]->id;
+                    $sth->bindParam(':'.$k,$ref);
+                }
+                else{
+                    $sth->bindParam(':'.$k, $bindings[$k]);
+                }
+            }
             if(!$sth->execute()) {
                 return false;
             }
             return $this->find_by_id($this->pdo->lastInsertId());
         }
+    }
+
+    public function setMM($local_id,$foreign_id,$foreign_table) {
+        $tablename=$this->table."_has_".$foreign_table;
+        $sql="DELETE FROM
+                ".$tablename."
+              WHERE
+                ".$this->table."_id=:localid";
+        $sth=$this->pdo->prepare($sql);
+        $sth->bindParam(":localid",$local_id);
+        $sth->execute();
+        if(false!==$foreign_id) {
+            $this->addMM($local_id,$foreign_id,$foreign_table);
+        }
+    }
+
+    public function addMM($local_id,$foreign_id,$foreign_table) {
+
+        if(is_object($foreign_id)) {
+            $foreign_id=$foreign_id->id;
+        }
+        if(is_array($foreign_id)) {
+            return;
+        }
+
+        $tablename=$this->table."_has_".$foreign_table;
+        $sql="INSERT IGNORE INTO
+                $tablename
+              SET
+                ".$this->table."_id=:localid,
+                ".$foreign_table."_id=:foreignid";
+        $sth=$this->pdo->prepare($sql);
+
+
+
+        $sth->bindParam(":localid",$local_id);
+
+        $sth->bindParam(":foreignid",$foreign_id);
+
+        $sth->execute();
+
     }
 
     public function getPropertiesAsArray($object){
@@ -133,7 +201,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             $getter=Orm::getGetterForAttribute($property->getName());
             $k=Orm::getColumnFromAttribute($property->getName());
             $v=$object->$getter();
-            if($k == "id"  || is_object($v)) continue;
+            if($k == "id" ) continue;
             $query[] = "$k=:$k";
             $bindings[$k] = $v;
         }

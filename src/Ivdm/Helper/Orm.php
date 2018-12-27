@@ -177,8 +177,8 @@ class Orm{
         $tablename=$local."_has_".$foreign;
         if(!$this->tableExists($tablename)) {
             $this->createTableSql($tablename);
-            $this->addAttributeField($local."_id","INT(11)",$tablename);
-            $this->addAttributeField($foreign."_id","INT(11)",$tablename);
+            $this->addAttributeField($local."_id",$tablename,"INT(11)");
+            $this->addAttributeField($foreign."_id",$tablename,"INT(11)");
             $sql='ALTER TABLE 
                       '.$tablename.' ADD UNIQUE 
                       ('.$local.'_id, '.$foreign.'_id)';

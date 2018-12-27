@@ -46,6 +46,7 @@ möglich (Angabe in Nummerncodes, 10-stellig)",Codeliste siehe unter www.phonone
 keyword_code_5"
 cover_vorne,Coverfront,Bild Cover (Vorderseite) / Frontcover / Packshot,max. 600px Größe,,"artwork[0]",
 cover_hinten,Coverback,Bild Rückcover (Rückseite) / Backcover / Packshot,,,"artwork[1]",
+tracks,Tracks,,,"Tracks",tracks,
 number_of_tracks,Anzahl der Tracks auf dem Medium,,,"Anzahl der Tracks für dieses Produkt (numerisch, 3-
-stellig)",number_of_tracks,
-playtime,Track- oder Gesamtspieldauer ,,Track- oder Gesamtspieldauer (mmmss),092:36,playtime,
+stellig)",
+playtime,Track- oder Gesamtspieldauer ,,Track- oder Gesamtspieldauer (mmmss),092:36,,

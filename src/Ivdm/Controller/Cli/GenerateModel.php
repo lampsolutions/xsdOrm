@@ -62,13 +62,15 @@ class GenerateModel extends BaseController {
                 }
                 $description.=$data[3];
 
-                $mapping = Orm::dashesToCamelCase($data[5]);
-                if(strpos($mapping,"[")!==false){
-                    $tmp=explode("[",$mapping);
-                    $mapping=$tmp[0]."()[".$tmp[1];
-                }
-                else{
-                    $mapping=$mapping."()";
+                $mapping=false;
+                if($data[5]) {
+                    $mapping = Orm::dashesToCamelCase($data[5]);
+                    if (strpos($mapping, "[") !== false) {
+                        $tmp = explode("[", $mapping);
+                        $mapping = $tmp[0] . "()[" . $tmp[1];
+                    } else {
+                        $mapping = $mapping . "()";
+                    }
                 }
                 $modelData["attributes"][$row] = [
                     "attribute" => $data[0],

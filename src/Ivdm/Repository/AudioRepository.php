@@ -19,6 +19,7 @@ class AudioRepository{
             $mapper=Orm::getMapperIncommingForAttribute($property);
             if(method_exists($element,$mapper)) {
                 $element->$mapper($product);
+
             }
         }
         return $element;
