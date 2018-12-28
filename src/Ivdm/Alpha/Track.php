@@ -1,6 +1,6 @@
 <?php
 
-namespace Ivdm\Models;
+namespace Ivdm\Alpha;
 
 class Track {
 
@@ -103,15 +103,15 @@ class Track {
     * @param $targetObject
     */
     public function mapTrack(&$targetObject){
-        $targetObject->track=$this->track;
+        $targetObject->settrack($this->track);
     }
             
     /**
     * map track
     * @param $targetObject
     */
-    public function mapTrackIncommung(&$targetObject){
-        $this->track=$targetObject->getTrack;
+    public function mapTrackIncomming(&$targetObject){
+       // $this->track=$targetObject->getTrack();
     }
                         /**
     * get trackno
@@ -132,15 +132,15 @@ class Track {
     * @param $targetObject
     */
     public function mapTrackno(&$targetObject){
-        $targetObject->trackno=$this->trackno;
+        $targetObject->settrackno($this->trackno);
     }
             
     /**
     * map trackno
     * @param $targetObject
     */
-    public function mapTracknoIncommung(&$targetObject){
-        $this->trackno=$targetObject->getTrackno;
+    public function mapTracknoIncomming(&$targetObject){
+        $this->trackno=$targetObject->getTrackno();
     }
                         /**
     * get setno
@@ -161,15 +161,15 @@ class Track {
     * @param $targetObject
     */
     public function mapSetno(&$targetObject){
-        $targetObject->setno=$this->setno;
+        $targetObject->setsetno($this->setno);
     }
             
     /**
     * map setno
     * @param $targetObject
     */
-    public function mapSetnoIncommung(&$targetObject){
-        $this->setno=$targetObject->getSetno;
+    public function mapSetnoIncomming(&$targetObject){
+        $this->setno=$targetObject->getSetno();
     }
                         /**
     * get composer
@@ -190,15 +190,15 @@ class Track {
     * @param $targetObject
     */
     public function mapComposer(&$targetObject){
-        $targetObject->composer=$this->composer;
+        $targetObject->setcomposer($this->composer);
     }
             
     /**
     * map composer
     * @param $targetObject
     */
-    public function mapComposerIncommung(&$targetObject){
-        $this->composer=$targetObject->getComposer;
+    public function mapComposerIncomming(&$targetObject){
+        $this->composer=$targetObject->getComposer();
     }
                         /**
     * get conductor
@@ -219,15 +219,15 @@ class Track {
     * @param $targetObject
     */
     public function mapConductor(&$targetObject){
-        $targetObject->conductor=$this->conductor;
+        $targetObject->setconductor($this->conductor);
     }
             
     /**
     * map conductor
     * @param $targetObject
     */
-    public function mapConductorIncommung(&$targetObject){
-        $this->conductor=$targetObject->getConductor;
+    public function mapConductorIncomming(&$targetObject){
+        $this->conductor=$targetObject->getConductor();
     }
                         /**
     * get orchestra
@@ -248,15 +248,15 @@ class Track {
     * @param $targetObject
     */
     public function mapOrchestra(&$targetObject){
-        $targetObject->orchestra=$this->orchestra;
+        $targetObject->setorchestra($this->orchestra);
     }
             
     /**
     * map orchestra
     * @param $targetObject
     */
-    public function mapOrchestraIncommung(&$targetObject){
-        $this->orchestra=$targetObject->getOrchestra;
+    public function mapOrchestraIncomming(&$targetObject){
+        $this->orchestra=$targetObject->getOrchestra();
     }
                         /**
     * get main_publisher
@@ -277,15 +277,15 @@ class Track {
     * @param $targetObject
     */
     public function mapMainpublisher(&$targetObject){
-        $targetObject->mainPublisher=$this->main_publisher;
+        $targetObject->setmainPublisher($this->main_publisher);
     }
             
     /**
     * map main_publisher
     * @param $targetObject
     */
-    public function mapMainpublisherIncommung(&$targetObject){
-        $this->main_publisher=$targetObject->getMainpublisher;
+    public function mapMainpublisherIncomming(&$targetObject){
+        $this->main_publisher=$targetObject->getMainpublisher();
     }
                         /**
     * get main_artist
@@ -306,15 +306,15 @@ class Track {
     * @param $targetObject
     */
     public function mapMainartist(&$targetObject){
-        $targetObject->mainArtist=$this->main_artist;
+        $targetObject->setmainArtist($this->main_artist);
     }
             
     /**
     * map main_artist
     * @param $targetObject
     */
-    public function mapMainartistIncommung(&$targetObject){
-        $this->main_artist=$targetObject->getMainartist;
+    public function mapMainartistIncomming(&$targetObject){
+        $this->main_artist=$targetObject->getMainartist();
     }
                         /**
     * get title
@@ -335,15 +335,15 @@ class Track {
     * @param $targetObject
     */
     public function mapTitle(&$targetObject){
-        $targetObject->title=$this->title;
+        $targetObject->settitle($this->title);
     }
             
     /**
     * map title
     * @param $targetObject
     */
-    public function mapTitleIncommung(&$targetObject){
-        $this->title=$targetObject->getTitle;
+    public function mapTitleIncomming(&$targetObject){
+        $this->title=$targetObject->getTitle();
     }
                         /**
     * get work
@@ -364,15 +364,15 @@ class Track {
     * @param $targetObject
     */
     public function mapWork(&$targetObject){
-        $targetObject->work=$this->work;
+        $targetObject->setwork($this->work);
     }
             
     /**
     * map work
     * @param $targetObject
     */
-    public function mapWorkIncommung(&$targetObject){
-        $this->work=$targetObject->getWork;
+    public function mapWorkIncomming(&$targetObject){
+        $this->work=$targetObject->getWork();
     }
                         /**
     * get is_live
@@ -393,15 +393,15 @@ class Track {
     * @param $targetObject
     */
     public function mapIslive(&$targetObject){
-        $targetObject->isLive=$this->is_live;
+        $targetObject->setisLive($this->is_live);
     }
             
     /**
     * map is_live
     * @param $targetObject
     */
-    public function mapIsliveIncommung(&$targetObject){
-        $this->is_live=$targetObject->getIslive;
+    public function mapIsliveIncomming(&$targetObject){
+        $this->is_live=$targetObject->getIslive();
     }
                         /**
     * get playtime
@@ -422,15 +422,15 @@ class Track {
     * @param $targetObject
     */
     public function mapPlaytime(&$targetObject){
-        $targetObject->playtime=$this->playtime;
+        $targetObject->setplaytime($this->playtime);
     }
             
     /**
     * map playtime
     * @param $targetObject
     */
-    public function mapPlaytimeIncommung(&$targetObject){
-        $this->playtime=$targetObject->getPlaytime;
+    public function mapPlaytimeIncomming(&$targetObject){
+        $this->playtime=$targetObject->getPlaytime();
     }
             
 

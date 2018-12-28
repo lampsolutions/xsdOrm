@@ -4,6 +4,7 @@ namespace Ivdm\Repository;
 use Ivdm\Helper\Orm;
 use PDO;
 use ReflectionClass;
+use Slim\Container;
 
 class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
@@ -14,6 +15,9 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
     protected $table;
     protected $class;
+
+    /** @var Container $c */
+    protected $c;
 
 
     public function __construct(\PDO $pPdo) {
@@ -26,8 +30,9 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
      * @return bool|mixed
      */
     public function find_single_item_by_property($property, $value) {
+
         if(!empty($value)
-            && !in_array($property, array_keys(get_object_vars(new $this->class())))) {
+            && !in_array($property, array_keys($this->getPropertiesAsArray(new $this->class())))) {
             return false;
         }
 
@@ -36,7 +41,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         $sth->bindParam(':val', $value, PDO::PARAM_STR);
         try {
             $sth->execute();
-            $r = $sth->fetchObject($this->class, [$this->c]);
+            $r = $sth->fetchObject($this->class);
             return $r;
         } catch(\Exception $e) {
             return false;
@@ -82,7 +87,10 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
      * @param mixed $model
      * @return bool|mixed
      */
-    public function save($object) {
+    public function save($object,$container=false) {
+        if($container){
+            $this->c=$container;
+        }
         if(!empty($object->id)) {
             $existing = $this->find_by_id($object->id);
             if(!$existing) return false;
@@ -94,25 +102,49 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             }
 
 
-
             $SQL = "UPDATE ".$this->table." SET ".implode(", ", $query)." WHERE id = :id";
             $sth = $this->pdo->prepare($SQL);
 
             foreach($bindings as $k => $v){
                 if(is_array($bindings[$k])){
-                    $elemts=count($bindings[$k]);
-                    $sth->bindParam(':'.$k, $elemts);
+                    $elements=count($bindings[$k]);
+                    $sth->bindParam(':'.$k, $elements);
+                    $reflect = new ReflectionClass($bindings[$k][0]);
+                    $foreign_table=strtolower($reflect->getShortName());
+                    $this->setMM($object->id,false,$foreign_table,true);//clean all references
                     foreach($bindings[$k] as $element){
+
                         if(@$element->id>0){
-                            $reflect = new ReflectionClass($element);
-                            $foreign_table=strtolower($reflect->getShortName());
                             $this->addMM($object->id,$element->id,$foreign_table);
+                        }
+                        else{
+                            $innerRepository=$this->c->generalRepository;
+                            $innerRepository->setClassAndTable(get_class($element));
+                            $tmp=$innerRepository->save($element,$this->c);
+                            $this->addMM($object->id,$tmp->id,$foreign_table);
+                            $element->id=$tmp->id;
+                            $innerRepository->save($element,$this->c);
                         }
                     }
                 }
                 else if(is_object($bindings[$k])){
-                    $ref=$bindings[$k]->id;
+                    $ref=1;
                     $sth->bindParam(':'.$k,$ref);
+                    $reflect = new ReflectionClass($bindings[$k]);
+                    $foreign_table=strtolower($reflect->getShortName());
+                    $this->setMM($object->id,false,$foreign_table,true);//clean all references
+                    if(@$bindings[$k]->id>0){
+                        $this->addMM($object->id,$bindings[$k]->id,$foreign_table);
+                    }
+                    else{
+                        $innerRepository=$this->c->generalRepository;
+                        $innerRepository->setClassAndTable(get_class($bindings[$k]));
+
+                        $tmp=$innerRepository->save($bindings[$k],$this->c);
+                        $this->addMM($object->id,$tmp->id,$foreign_table);
+                        $bindings[$k]->id=$tmp->id;
+                        $innerRepository->save($bindings[$k],$this->c);
+                    }
                 }
                 else{
                     $sth->bindParam(':'.$k, $bindings[$k]);
@@ -139,7 +171,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
                 }
                 else if(is_object($bindings[$k])){
-                    $ref=$bindings[$k]->id;
+                    @$ref=$bindings[$k]->id;
                     $sth->bindParam(':'.$k,$ref);
                 }
                 else{
@@ -153,8 +185,29 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         }
     }
 
-    public function setMM($local_id,$foreign_id,$foreign_table) {
+    public function cascateDelete($local_id,$foreign_table,$tablename){
+        $sql="SELECT ".$foreign_table."_id FROM ".$tablename." WHERE ".$this->table."_id=:localid";
+        $sth=$this->pdo->prepare($sql);
+        $sth->bindParam(":localid",$local_id);
+        $ids=$sth->fetchColumn();
+        if($ids && count($ids)>0) {
+            $class = Orm::dashesToCamelCase($foreign_table);
+            $object = $this->c->$class;
+            $repository = $this->c->generalRepository;
+            $repository->setClassAndTable(get_class($object));
+            foreach ($ids as $id) {
+                $object->id = $id;
+                $repository->delete($object);
+            }
+        }
+    }
+
+    public function setMM($local_id,$foreign_id,$foreign_table,$cascate) {
         $tablename=$this->table."_has_".$foreign_table;
+
+        if($cascate){
+            $this->cascateDelete($local_id,$foreign_table,$tablename);
+        }
         $sql="DELETE FROM
                 ".$tablename."
               WHERE
@@ -285,5 +338,32 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             }
             return $xml->asXML();
 
+    }
+
+    /**
+     * @param $local_id
+     * @param $foreign_table
+     * @param \Bayernpartei\Repository\ICRUDRepository $foreignRepository
+     */
+    public function getMM($local_id,$foreign_table,$foreignRepository) {
+        $tablename=$this->table."_has_".$foreign_table;
+        $sql="SELECT 
+                ".$foreign_table."_id as id
+              FROM
+                ".$tablename."
+              WHERE
+                ".$this->table."_id=:localid";
+        $sth=$this->pdo->prepare($sql);
+        $sth->bindParam(":localid",$local_id);
+        $sth->execute();
+        $result=$sth->fetchAll(PDO::FETCH_ASSOC);
+        $return=[];
+        foreach($result as $row) {
+            $object=$foreignRepository->find_by_id($row["id"]);
+            if($object) {
+                $return[]=$object;
+            }
+        }
+        return $return;
     }
 }

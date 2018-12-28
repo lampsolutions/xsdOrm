@@ -1,6 +1,6 @@
 <?php
 
-namespace Ivdm\Models;
+namespace Ivdm\Alpha;
 
 class Audio {
 

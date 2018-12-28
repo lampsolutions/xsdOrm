@@ -17,7 +17,7 @@ class Database extends BaseController {
         foreach ($this->glob_recursive($folder . "/*.php") as $repository) {
             $relative_path=str_replace($folder."/","",$repository);
             $classname = "\Ivdm\Phononet\\" . str_replace(".php", "",str_replace("/","\\", $relative_path));
-            $this->c->orm->createTable($classname);
+            $this->c->orm->createTable($classname,["gtin"]);
         }
     }
 

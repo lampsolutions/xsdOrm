@@ -43,6 +43,5 @@ class File {
         return strval($this->__value);
     }
 
-
 }
 

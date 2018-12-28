@@ -41,7 +41,7 @@ class GenerateModel extends BaseController {
 
         $row = 0;
         $modelData=[
-            "namespace" => "\Ivdm\Models",
+            "namespace" => "\Ivdm\Alpha",
             "classname" => str_replace(".php","",basename($target))
         ];
 

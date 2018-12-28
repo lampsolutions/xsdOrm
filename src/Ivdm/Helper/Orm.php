@@ -29,13 +29,13 @@ class Orm{
      *
      * @param String $classname
      */
-    public function createTable(String $classname):void {
+    public function createTable(String $classname, array $uniqueFields=null):void {
 
 
         if(class_exists($classname)) {
             $table=$this->getTableNameFromClassname($classname);
             $this->createTableSql($table);
-            $this->addAttributeFields($classname);
+            $this->addAttributeFields($classname,$uniqueFields);
         }
         else {
             return;
@@ -81,12 +81,14 @@ class Orm{
      * add all attribute field to database
      * @param String $class
      */
-    public function addAttributeFields(String $class) :void{
+    public function addAttributeFields(String $class, array $uniqueFields=null) :void{
         $class_vars = get_class_vars($class);
         foreach($class_vars as $name => $value) {
+            $unique=in_array($name,$uniqueFields);
             $this->addAttributeField($name,
                 $this->getTableNameFromClassname($class),
-                $this->getTypeFromClassAndAtribute($class,$name)
+                $this->getTypeFromClassAndAtribute($class,$name),
+                $unique
             );
         }
         $getter=get_class_methods($class);
@@ -94,9 +96,12 @@ class Orm{
             if(strpos($name,"get")===0){
                 $converter = new CamelCaseToSnakeCaseNameConverter();
                 $attribute=$converter->normalize(str_replace("get","",$name));
+                $unique=in_array($attribute,$uniqueFields);
+
                 $this->addAttributeField($attribute,
                     $this->getTableNameFromClassname($class),
-                    $this->getTypeFromClassAndAtribute($class,$name)
+                    $this->getTypeFromClassAndAtribute($class,$name),
+                    $unique
                 );
             }
         }
@@ -106,10 +111,13 @@ class Orm{
         $reflectionClass = new ReflectionClass($class);
         $attribute=lcfirst(str_replace("get","",$name));
         $pattern = "#(@[a-zA-Z]+\s*[a-zA-Z0-9, ()_].*)#";
+        $pattern_digits = "#(\d{1,3})\sdigits#";
+
         try{
             $annotation=($reflectionClass->getProperty($attribute)->getDocComment());
             $matches=[];
             $hit=preg_match_all($pattern, $annotation, $matches, PREG_PATTERN_ORDER);
+
             if($hit){
                 $type=explode(" ",$matches[0][0])[1];
 
@@ -122,10 +130,19 @@ class Orm{
                     );
                     return "INT(11)";
                 }
-
                 switch ($type){
                     case "string":
-                        $result="TEXT";
+                        $matchesDigits=[];
+                        preg_match_all($pattern_digits, $annotation, $matchesDigits, PREG_PATTERN_ORDER);
+                        @$digits=$matchesDigits[1][0];
+                        if($digits > 0){
+                            $result="VARCHAR(".$digits.")";
+
+                        }
+                        else{
+                            $result="TEXT";
+
+                        }
                         break;
                     case "float":
                         $result="FLOAT";
@@ -154,8 +171,9 @@ class Orm{
      * @param $name
      * @param $table
      * @param string $type
+     * @param bool $unique
      */
-    protected function addAttributeField($name,$table,$type="TEXT") :void{
+    protected function addAttributeField($name,$table,$type="TEXT",$unique=false) :void{
         $sql="ALTER TABLE 
                 `".$table."` 
               ADD COLUMN `".$name."` ".$type." ";
@@ -164,6 +182,21 @@ class Orm{
             $sth->execute();
         }catch (\Exception $e) {
             //ignore
+        }
+        if($unique){
+            $sql="ALTER TABLE 
+                `".$table."` 
+              ADD UNIQUE (`".$name."`)";
+            try{
+                $sth = $this->pdo->prepare($sql);
+                $sth->execute();
+            }catch (\Exception $e) {
+                if($name=="gtin") {
+                    var_dump($sql);
+                    die();
+                }
+                //ignore
+            }
         }
     }
 

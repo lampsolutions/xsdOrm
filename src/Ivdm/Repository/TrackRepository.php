@@ -5,21 +5,22 @@ namespace Ivdm\Repository;
 
 use Ivdm\Helper\Orm;
 use Ivdm\Alpha\Audio;
-use Ivdm\Phononet\Products\ProductAType;
+use Ivdm\Phononet\Track;
 
-class AudioRepository{
+class TrackRepository{
 
-    protected $class="\Ivdm\Alpha\Audio";
+    protected $class="\Ivdm\Alpha\Track";
 
-    public function mapElementsFromPhonoet(ProductAType $product,GeneralRepository $repository){
+    public function mapElementsFromPhonoet(Track $track,GeneralRepository $repository){
         /** @var Audio $element */
-        $element = new Audio();
+        $element = new \Ivdm\Alpha\Track();
         $properties=$repository->getPropertiesAsArray($element);
         foreach(array_keys($properties) as $property){
             $mapper=Orm::getMapperIncommingForAttribute($property);
-            if(method_exists($element,$mapper)) {
-                $element->$mapper($product);
 
+            if(method_exists($element,$mapper)) {
+
+                $element->$mapper($track);
             }
         }
         return $element;
