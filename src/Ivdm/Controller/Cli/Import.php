@@ -11,13 +11,15 @@ class Import extends BaseController {
 
     public function doDailyImport(){
 
-        foreach (glob(APP_ROOT."/var/*.xml") as $filename) {
-            $this->importFromFile($filename);
+        $files=glob(APP_ROOT."/var/xml/*.xml");
+        $i=0;
+        foreach ($files as $filename) {
+            $this->importFromFile($filename,count($files),$i++);
         }
 
     }
 
-    protected function importFromFile($filename){
+    protected function importFromFile($filename,$workload,$current){
         $this->c->logger->info("Reading from ".$filename);
         stream_filter_register('xmlutf8', '\Ivdm\Helper\ValidUTF8XMLFilter');
         $xml = simplexml_load_file("php://filter/read=xmlutf8/resource=".$filename);
@@ -27,6 +29,8 @@ class Import extends BaseController {
         $product = $this->c->productAType;
 
 
+        $i=0;
+        $all=$xml->count();
         foreach($xml as $xmlElement) {
             $product = $this->c->productAType;
             $productRepository=$this->c->generalRepository;
@@ -41,6 +45,7 @@ class Import extends BaseController {
                 $product->id=$tmp->id;
             }
             $productRepository->save($product,$this->c);
+            $this->c->logger->info("Done element ".$i++." from ".$all." in file ".$current." of ".$workload);
         }
 
     }

@@ -4,7 +4,7 @@ return [
         'displayErrorDetails' => true,
         'logger' => [
             'name' => 'slim-app',
-            'path' => APP_ROOT . 'logs/app.log',
+            'path' => APP_ROOT . 'logs/'.date("Y-m-d").'-app.log',
         ],
     ],
 ];
