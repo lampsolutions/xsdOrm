@@ -94,8 +94,8 @@ class Orm{
         $getter=get_class_methods($class);
         foreach($getter as $name){
             if(strpos($name,"get")===0){
-                $converter = new CamelCaseToSnakeCaseNameConverter();
-                $attribute=$converter->normalize(str_replace("get","",$name));
+                //$converter = new CamelCaseToSnakeCaseNameConverter();
+                $attribute=lcfirst(str_replace("get","",$name));
                 $unique=in_array($attribute,$uniqueFields);
 
                 $this->addAttributeField($attribute,
@@ -241,6 +241,7 @@ class Orm{
     }
 
     public static function getColumnFromAttribute(String $attribute){
+        return $attribute;
         $converter = new CamelCaseToSnakeCaseNameConverter();
         return $converter->normalize($attribute);
     }
