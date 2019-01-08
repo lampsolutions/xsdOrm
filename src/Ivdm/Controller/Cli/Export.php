@@ -18,7 +18,7 @@ class Export extends BaseController{
 
         $productRepository->setClassAndTable(get_class($product));
 
-        $this->articlesToXml($productRepository->findAll(),"products",$productRepository);
+        $this->articlesToXml($productRepository->findAll(false,false,$this->c),"products",$productRepository);
 
     }
 
@@ -45,6 +45,24 @@ class Export extends BaseController{
                 if($property == "Tracks"){
                     continue;
                 }
+                if($property->getName() == "cover_vorne") {
+                    $coverRepository = $this->c->generalRepository;
+                    $coverRepository->setClassAndTable("Ivdm\Phononet\TArtworkPictureType");
+                    $cover = $repository->getMM($article->id, "t_artwork_picture_type", $coverRepository);
+                    $coverElement = $element->addChild("cover_vorne", $cover[0]->file);
+                    continue;
+
+                }
+
+
+                if($property == "cover_hinten") {
+                    $coverRepository = $this->c->generalRepository;
+                    $coverRepository->setClassAndTable("Ivdm\Phononet\TArtworkPictureType");
+                    $cover = $coverRepository->getMM($article->id, "product_a_type_has_t_artwork_picture_type", $coverRepository);
+                    $coverElement = $element->addChild("cover_hinten", $cover[1]->file);
+                    continue;
+                }
+
                 $getter=Orm::getGetterForAttribute($property->getName());
                 $key=Orm::getColumnFromAttribute($property->getName());
                 $value=$audio->$getter();
@@ -80,11 +98,7 @@ class Export extends BaseController{
                     }
 
                 }
-
-
-
             }
-
         }
         $dom = new DOMDocument("1.0");
         $dom->preserveWhiteSpace = false;

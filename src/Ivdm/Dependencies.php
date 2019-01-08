@@ -45,6 +45,9 @@ $container['generalRepository'] = $container->factory(function ($container) {
 $container['productAType'] = $container->factory(function () {
     return new \Ivdm\Phononet\Products\ProductAType();
 });
+$container['tartworkpicturetype'] = $container->factory(function () {
+    return new \Ivdm\Phononet\TArtworkPictureType();
+});
 
 $container['tracks'] = $container->factory(function () {
     return new \Ivdm\Phononet\Tracks();

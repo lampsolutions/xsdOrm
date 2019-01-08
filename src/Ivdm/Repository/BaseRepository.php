@@ -1,6 +1,8 @@
 <?php
 namespace Ivdm\Repository;
 
+use InvalidArgumentException;
+use Ivdm\Helper\Cheater;
 use Ivdm\Helper\Orm;
 use PDO;
 use ReflectionClass;
@@ -70,19 +72,64 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         }
     }
 
-    public function find_by_id($id) {
+    public function find_by_id($id,$container=false) {
+        $this->c=$container;
         $sql = "SELECT * FROM ".$this->table." WHERE id = :id";
         $sth = $this->pdo->prepare($sql);
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
         try {
             $sth->execute();
             $r = $sth->fetchObject($this->class);
+            $this->load($r);
             return $r;
         } catch(\Exception $e) {
 
             return false;
         }
     }
+
+    public function load(&$object){
+        return;
+        $class = new ReflectionClass(get_class($object));
+        $methods=$class->getMethods();
+        foreach($methods as $method){
+            if(strpos($method->getName(),"get")===0){
+                $pattern = "#(@[a-zA-Z]+\s*[a-zA-Z0-9, ()_].*)#";
+                $annotation=($method->getDocComment());
+
+                $hit=preg_match_all($pattern, $annotation, $matches, PREG_PATTERN_ORDER);
+                if($hit) {
+                    $type = explode(" ", $matches[0][0])[1];
+                    if(strpos($type,"Phononet")!==false) {
+                        if (count(explode("\\", $type)) > 2) {
+                            $foreign = (explode("\\", $type));
+                            $foreign = str_replace("[]", "", array_pop($foreign));
+
+                            $repository = Cheater::getContainer()->generalRepository;
+                            $repository->setClassAndTable("Ivdm\Phononet\\" . $foreign);
+
+                            $elements = $this->getMM(1, ORM::getTableNameFromClassname($foreign), $repository);
+                            $setter=ORM::getSetterForAttribute($foreign);
+
+                            #Todo: fix hack
+                            if($setter=="setTArtworkPictureType"){
+                                $setter="setArtwork";
+                            }
+                            if(method_exists($object,$setter)) {
+                                try {
+                                    $object->$setter($elements);
+                                }catch (\Throwable $e){
+                                    $object->$setter($elements[0]);
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * @param mixed $model
      * @return bool|mixed
@@ -106,25 +153,37 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             $sth = $this->pdo->prepare($SQL);
 
             foreach($bindings as $k => $v){
-                if(is_array($bindings[$k])){
+                if($bindings[$k] instanceof \DateTime){
+                    $mysqldate=date_format($bindings[$k],"Y-m-d H:i:s");
+                    $sth->bindParam(':'.$k, $mysqldate);
+                }
+                else if(is_array($bindings[$k])){
                     $elements=count($bindings[$k]);
                     $sth->bindParam(':'.$k, $elements);
-                    $reflect = new ReflectionClass($bindings[$k][0]);
-                    $foreign_table=strtolower($reflect->getShortName());
-                    $this->setMM($object->id,false,$foreign_table,true);//clean all references
-                    foreach($bindings[$k] as $element){
 
-                        if(@$element->id>0){
-                            $this->addMM($object->id,$element->id,$foreign_table);
+
+                    if(is_object($bindings[$k][0])) {
+                        $reflect = new ReflectionClass($bindings[$k][0]);
+                        $foreign_table = ORM::getColumnFromAttribute($reflect->getShortName());
+                        $this->setMM($object->id, false, $foreign_table, true);//clean all references
+                        foreach ($bindings[$k] as $element) {
+
+                            if (@$element->id > 0) {
+                                $this->addMM($object->id, $element->id, $foreign_table);
+                            } else {
+                                $innerRepository = Cheater::getContainer()->generalRepository;
+                                $innerRepository->setClassAndTable(get_class($element));
+
+                                $tmp = $innerRepository->save($element, $this->c);
+                                $this->addMM($object->id, $tmp->id, $foreign_table);
+                                $element->id = $tmp->id;
+                                $innerRepository->save($element, $this->c);
+                            }
                         }
-                        else{
-                            $innerRepository=$this->c->generalRepository;
-                            $innerRepository->setClassAndTable(get_class($element));
-                            $tmp=$innerRepository->save($element,$this->c);
-                            $this->addMM($object->id,$tmp->id,$foreign_table);
-                            $element->id=$tmp->id;
-                            $innerRepository->save($element,$this->c);
-                        }
+                    }
+                    else{
+                        $string=rtrim(implode(";",$bindings[$k]),";");
+                        $sth->bindValue(':'.$k, $string);
                     }
                 }
                 else if(is_object($bindings[$k])){
@@ -137,7 +196,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
                         $this->addMM($object->id,$bindings[$k]->id,$foreign_table);
                     }
                     else{
-                        $innerRepository=$this->c->generalRepository;
+                        $innerRepository=Cheater::getContainer()->generalRepository;
                         $innerRepository->setClassAndTable(get_class($bindings[$k]));
 
                         $tmp=$innerRepository->save($bindings[$k],$this->c);
@@ -156,6 +215,8 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             }
             return $this->find_by_id($object->id, true);
         } else {
+
+
             $query = [];
             $bindings = $this->getPropertiesAsArray($object);
             foreach(array_keys($bindings) as $key){
@@ -165,9 +226,20 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             $SQL = "INSERT INTO ".$this->table." SET ".implode(", ", $query);
             $sth = $this->pdo->prepare($SQL);
             foreach($bindings as $k => $v){
-                if(is_array($bindings[$k])){
-                    $elements=count($bindings[$k]);
-                    $sth->bindParam(':'.$k, $elements);
+
+                if($bindings[$k] instanceof \DateTime){
+                    $mysqldate=date_format($bindings[$k],"Y-d-d H:i:s");
+                    $sth->bindParam(':'.$k, $mysqldate);
+                }
+                else if(is_array($bindings[$k])){
+                    if(is_object($bindings[$k][0])) {
+                        $elements = count($bindings[$k]);
+                        $sth->bindParam(':' . $k, $elements);
+                    }
+                    else{
+                        $string=implode(";",$bindings[$k]);
+                        $sth->bindParam(':'.$k, $string);
+                    }
 
                 }
                 else if(is_object($bindings[$k])){
@@ -249,7 +321,8 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
     public function getPropertiesAsArray($object){
         $reflection = new ReflectionClass($object);
-        $properties = $reflection->getProperties();
+        $properties = $this->getClassProperties(get_class($object));
+
         foreach($properties as $property) {
             $getter=Orm::getGetterForAttribute($property->getName());
             $k=Orm::getColumnFromAttribute($property->getName());
@@ -259,6 +332,31 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             $bindings[$k] = $v;
         }
         return  $bindings;
+    }
+
+
+    public function getClassProperties($className, $types='all'){
+        $ref = new ReflectionClass($className);
+        $props = $ref->getProperties();
+        $props_arr = array();
+        foreach($props as $prop){
+            $f = $prop->getName();
+            if($types=="all") {
+            }else{
+                if ($prop->isPublic() and (stripos($types, 'public') === FALSE)) continue;
+                if ($prop->isPrivate() and (stripos($types, 'private') === FALSE)) continue;
+                if ($prop->isProtected() and (stripos($types, 'protected') === FALSE)) continue;
+                if ($prop->isStatic() and (stripos($types, 'static') === FALSE)) continue;
+            }
+
+            $props_arr[$f] = $prop;
+        }
+        if($parentClass = $ref->getParentClass()){
+            $parent_props_arr = $this->getClassProperties($parentClass->getName());//RECURSION
+            if(count($parent_props_arr) > 0)
+                $props_arr = array_merge($parent_props_arr, $props_arr);
+        }
+        return $props_arr;
     }
 
     /**
@@ -281,7 +379,8 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         return false;
     }
 
-    public function findAll($order=false, $sorting=false) {
+    public function findAll($order=false, $sorting=false,$container=null) {
+        $this->c=$container;
 
         if($sorting!=="DESC") {
             $sorting="ASC";
@@ -297,6 +396,10 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
         try {
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_CLASS, $this->class);
+            foreach($result as &$row){
+                $this->load($row);
+            }
+            unset($row);
             return $result;
         } catch(\Exception $e) {
 
@@ -338,6 +441,10 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
             }
             return $xml->asXML();
 
+    }
+
+    public function setContainer($container){
+        $this->c=$container;
     }
 
     /**

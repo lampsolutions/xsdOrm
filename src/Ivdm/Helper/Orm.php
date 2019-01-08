@@ -150,8 +150,8 @@ class Orm{
                     case "boolean":
                         $result="TINYINT";
                         break;
-                    case "\DateZime":
-                        $result="TEXT";
+                    case "\DateTime":
+                        $result="DATETIME NULL DEFAULT NULL";
                         break;
                     case "integer":
                         $result="INT(11)";

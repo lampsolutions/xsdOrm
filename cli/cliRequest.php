@@ -1,4 +1,7 @@
 <?php
+
+use Ivdm\Helper\Cheater;
+
 define('APP_ROOT', __DIR__.'/../');
 
 require APP_ROOT . '/src/Ivdm/bootstrap.php';
@@ -10,6 +13,8 @@ require APP_ROOT . '/src/Ivdm/Dependencies.php';
 require APP_ROOT . '/src/Ivdm/CliRoutes.php';
 
 $app->add(new \Ivdm\Middleware\CliRequest());
+
+Cheater::setContainer($container);
 
 error_reporting(E_ALL);
 

@@ -2,6 +2,7 @@
 namespace Ivdm\Controller\Cli;
 
 
+use DateTime;
 use Ivdm\Controller\BaseController;
 use Ivdm\Helper\Orm;
 use ReflectionClass;
@@ -27,7 +28,6 @@ class Import extends BaseController {
         $i=0;
         $j=0;
         $product = $this->c->productAType;
-
 
         $i=0;
         $all=$xml->count();
@@ -60,8 +60,13 @@ class Import extends BaseController {
      * @access public
      */
     function simpleXml2Object($xmlObject,&$object,&$parent=null){
+
+
+
         foreach ($xmlObject->children() as $node) {
             $setter=Orm::getSetterForAttribute($node->getName());
+
+
             if(method_exists($object,$setter)){
 
                 $class = new ReflectionClass(get_class($object));
@@ -72,6 +77,7 @@ class Import extends BaseController {
                 }
                 else if(strpos($type,"Phononet")){
                     $name=strtolower(substr(strrchr($type, "\\"), 1));
+
                     $innerObject=$this->c->$name;
 
 
@@ -86,19 +92,62 @@ class Import extends BaseController {
                 }
                 else if($type=="array"){
                     $adder=str_replace("set","addTo",$setter);
+
                     if(method_exists($object,$adder)) {
                         $name = strtolower(str_replace("addTo","",$adder));
+
                         try {
                             $innerObject = $this->c->$name;
                         }catch (ContainerValueNotFoundException $e){
-                            continue;
+                            $reflectedSetter=$class->getMethod($adder);
+                            $type=(String)$reflectedSetter->getParameters()[0]->getType();
+                            if($type==""){
+                                $object->$adder((string)$node);
+
+                            }
+                            else {
+                                $name = strtolower(substr(strrchr($type, "\\"), 1));
+                                try {
+                                    $innerObject = $this->c->$name;
+                                }
+                                catch (\Exception $e){
+                                    continue;
+                                }
+                            }
+                            //continue;
                         }
+
                         $this->simpleXml2Object($node, $innerObject,$parent);
+                        $getter=str_replace("addTo","get",$adder);
+
+                        if($object->$getter()!==null && !is_array($object->$getter())){
+                            $object->$setter([]);//clear reference on update
+
+                        }
+
                         $object->$adder($innerObject);
                     }
                 }
+                else if($type =="DateTime"){
+                    $object->$setter(new DateTime((string)$node));
+                }
+                else{
+                    $object->$setter((string)$node);
+                }
 
             }
+            if(is_iterable($xmlObject->attributes())){
+
+                foreach ($xmlObject->attributes() as $attribute) {
+                    $setter=Orm::getSetterForAttribute($attribute->getName());
+                    if(method_exists($object,$setter)) {
+
+                        $object->$setter((string)$attribute);
+                    }
+                }
+            }
+
+
         }
     }
 
