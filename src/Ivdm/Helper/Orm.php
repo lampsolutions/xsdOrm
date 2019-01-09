@@ -240,6 +240,11 @@ class Orm{
         return "map".self::dashesToCamelCase($attribute,true)."Incomming";
     }
 
+    public static function getTableFromAttribute(String $attribute){
+        $converter = new CamelCaseToSnakeCaseNameConverter();
+        return $converter->normalize($attribute);
+    }
+
     public static function getColumnFromAttribute(String $attribute){
         return $attribute;
         $converter = new CamelCaseToSnakeCaseNameConverter();

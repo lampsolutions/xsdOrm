@@ -164,7 +164,7 @@ class BaseRepository implements \Ivdm\Repository\ICRUDRepository{
 
                     if(is_object($bindings[$k][0])) {
                         $reflect = new ReflectionClass($bindings[$k][0]);
-                        $foreign_table = ORM::getColumnFromAttribute($reflect->getShortName());
+                        $foreign_table = ORM::getTableFromAttribute($reflect->getShortName());
                         $this->setMM($object->id, false, $foreign_table, true);//clean all references
                         foreach ($bindings[$k] as $element) {
 

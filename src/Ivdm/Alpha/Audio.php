@@ -366,7 +366,7 @@ class Audio {
     * get artikelgruppe
     */
     public function getArtikelgruppe(){
-        return $this->artikelgruppe;
+        return "Musik";
     }        
     /**
     * set artikelgruppe
@@ -925,7 +925,12 @@ class Audio {
     * @param $targetObject
     */
     public function mapCoverhintenIncomming(&$targetObject){
-        $this->cover_hinten=$targetObject->getArtwork()[1];
+        if(is_array($targetObject->getArtwork()) && count($targetObject->getArtwork()>1)) {
+            $this->cover_hinten = $targetObject->getArtwork()[1];
+        }
+        else{
+            $this->cover_hinten="";
+        }
     }
 
     /**

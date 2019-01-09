@@ -41,15 +41,47 @@ class Export extends BaseController{
             $element=$xml->addChild(Orm::getTableNameFromClassname(get_class($audio)));
             $reflection = new ReflectionClass($audio);
             $properties=$reflection->getProperties();
+
+            $tracksRepository = $this->c->generalRepository;
+            $tracksRepository->setClassAndTable("Ivdm\Phononet\Tracks");
+            $tracks=$repository->getMM($article->id,"tracks",$tracksRepository);
+
             foreach($properties as $property) {
-                if($property == "Tracks"){
+                if($property->getName() == "tracks"){
+                    continue;
+                }
+                if($property->getName() == "number_of_tracks"){
+                    if($tracks){
+                        $element->addChild("number_of_tracks",$tracks[0]->getNumberoftracks());
+                    }
+                    continue;
+                }
+                if($property->getName() == "playtime"){
+                    if($tracks){
+                        $element->addChild("playtime",$tracks[0]->getPlaytime());
+                    }
                     continue;
                 }
                 if($property->getName() == "cover_vorne") {
                     $coverRepository = $this->c->generalRepository;
                     $coverRepository->setClassAndTable("Ivdm\Phononet\TArtworkPictureType");
-                    $cover = $repository->getMM($article->id, "t_artwork_picture_type", $coverRepository);
-                    $coverElement = $element->addChild("cover_vorne", $cover[0]->file);
+                    $covers = $repository->getMM($article->id, "t_artwork_picture_type", $coverRepository);
+                    $frontCover=null;
+                    foreach($covers as $cover){
+                        if($cover->getType()=="front"){
+                            if($cover->resolutionX==600){
+                                $frontCover=$cover;
+                            }
+                            elseif(!$frontCover){
+                                $frontCover=$cover;
+                            }
+                        }
+                    }
+                    $link="";
+                    if($frontCover){
+                        $link="http://real1.phononet.de/alphacov600/".$frontCover->file;
+                    }
+                    $element->addChild("cover_vorne", $link);
                     continue;
 
                 }
@@ -59,7 +91,7 @@ class Export extends BaseController{
                     $coverRepository = $this->c->generalRepository;
                     $coverRepository->setClassAndTable("Ivdm\Phononet\TArtworkPictureType");
                     $cover = $coverRepository->getMM($article->id, "product_a_type_has_t_artwork_picture_type", $coverRepository);
-                    $coverElement = $element->addChild("cover_hinten", $cover[1]->file);
+                    $element->addChild("cover_hinten");
                     continue;
                 }
 
@@ -68,13 +100,9 @@ class Export extends BaseController{
                 $value=$audio->$getter();
                 $element->addChild($key,htmlspecialchars($value));
             }
-            $tracksRepository = $this->c->generalRepository;
-            $tracksRepository->setClassAndTable("Ivdm\Alpha\Tracks");
-            $tracks=$repository->getMM($article->id,"tracks",$tracksRepository);
+
             if($tracks){
                 $tracksElement=$element->addChild("tracks");
-                $tracksElement->addChild("number_of_tracks",$tracks[0]->getNumberoftracks());
-                $tracksElement->addChild("playtime",$tracks[0]->getPlaytime());
                 $trackRepository = $this->c->generalRepository;
                 $trackRepository->setClassAndTable("Ivdm\Phononet\Track");
                 $singleTrack=$tracksRepository->getMM($tracks[0]->id,"track",$trackRepository);
