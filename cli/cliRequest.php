@@ -1,32 +1,45 @@
 <?php
 
-use Ivdm\Helper\Cheater;
+error_reporting(E_ALL);
+
+
+use XsdOrm\Helper\Factory;
 
 define('APP_ROOT', __DIR__.'/../');
 
-require APP_ROOT . '/src/Ivdm/bootstrap.php';
+require APP_ROOT . '/src/XsdOrm/bootstrap.php';
 
 $app = new \Slim\App($settings);
 
 
-require APP_ROOT . '/src/Ivdm/Dependencies.php';
-require APP_ROOT . '/src/Ivdm/CliRoutes.php';
+/**
+ * defines $container
+ */
+require APP_ROOT . '/src/XsdOrm/Dependencies.php';
+require APP_ROOT . '/src/XsdOrm/CliRoutes.php';
 
-$app->add(new \Ivdm\Middleware\CliRequest());
+$app->add(new \XsdOrm\Middleware\CliRequest());
 
-Cheater::setContainer($container);
+/**
+ * custom notFoundHandler for CLI
+ *
+ * @param $c
+ * @return Closure
+ */
+$container['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        return $response->withStatus(404)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Page not found');
+    };
+};
 
-error_reporting(E_ALL);
 
-//php cliRequest.php /initPhononetDatabase GET
+/**
+ * Singelton to access Container when are are to lazy doing proper DI
+ */
+Factory::setContainer($container);
 
-//php cliRequest.php /generateModelFromCsv GET 'filename=../docs/mappings.csv&target=../src/Ivdm/Models/Audio.php'
-//php cliRequest.php /generateModelFromCsv GET 'filename=../docs/mappingsTrack.csv&target=../src/Ivdm/Alpha/Track.php'
-//php cliRequest.php /generateModelFromCsv GET 'filename=../docs/mappingsTracks.csv&target=../src/Ivdm/Alpha/Tracks.php'
-
-//php cliRequest.php /doDailyImport GET
-
-//php cliRequest.php /doDailyExport GET
 
 
 

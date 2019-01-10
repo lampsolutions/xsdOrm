@@ -1,7 +1,5 @@
 /vendor
 /.idea
-/var
-/logs
 /.vscode
 .phpunit.result.cache
 /config/config_local.php

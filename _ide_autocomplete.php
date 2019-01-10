@@ -9,17 +9,17 @@ class Slim_AC_Container extends \Slim\Container {
     public $pdo;
 
     /**
-     * @var \Ivdm\Helper\Orm
+     * @var \XsdOrm\Helper\Orm
      */
     public $orm;
 
     /**
-     * @var \Ivdm\Phononet\Products\ProductAType
+     * @var \XsdOrm\Phononet\Products\ProductAType
      */
     public $productAType;
 
     /**
-     * @var \Ivdm\Repository\GeneralRepository
+     * @var \XsdOrm\Repository\GeneralRepository
      */
     public $generalRepository;
 

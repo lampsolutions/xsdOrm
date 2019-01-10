@@ -1,0 +1,8 @@
+xsd2php:
+  namespaces:
+    '': 'Example'
+  destinations_php:
+    'Example': generated/Example
+  destinations_jms:
+    'Example': generated/Example/metadata
+
