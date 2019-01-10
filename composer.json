@@ -17,7 +17,7 @@
         "phpunit/php-code-coverage": "^5.3"
     },
     "scripts": {
-        "build": "vendor/bin/xsd2php convert config.yml docs/Example.xsd"
+        "build": "vendor/bin/xsd2php convert config.yml docs/examples/*.xsd"
   }
 
 }

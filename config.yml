@@ -1,6 +1,6 @@
 xsd2php:
   namespaces:
-    '': 'Example'
+    'http://www.data.jakob.de': 'Example'
   destinations_php:
     'Example': generated/Example
   destinations_jms:

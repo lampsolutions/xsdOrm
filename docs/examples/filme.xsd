@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:jakob="http://www.data.jakob.de"
+        targetNamespace="http://www.data.jakob.de"
+         >
+
+  <xs:import schemaLocation="altersfreigabe.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="bildformat.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="editionen.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="genres.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="klasse.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="medium.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="produk_land.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="sprachen.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="ton_sprache.xsd" namespace="http://www.data.jakob.de" />
+  <xs:import schemaLocation="verpackung.xsd" namespace="http://www.data.jakob.de" />
+
+
+  <xs:element name="filmeType" type="filmeType" />
+  <xs:complexType name="filmeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="film" type="ArrayOfFilmType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfFilmType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="filmType" type="filmType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="filmType">
+    <xs:sequence>
+
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="lieferbar" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="anbieter" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="cover_vorne" type="ArrayOfImage_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="titel_lang" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="discanzahl" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="label" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="medium" type="jakob:medium" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="verpackung" type="jakob:verpackung" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="laufzeit" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="art_vertrieb" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="vertrieb_ch" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="vertrieb_at" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="preis_ek" type="xs:float" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="preis_hap" type="xs:float" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="preis_code" type="xs:float" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="bildformat" type="ArrayOfBildformat_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="ton_sprache" type="ArrayOfTon_sprache_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="untertitel" type="ArrayOfUntertitel_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="bonusinfo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="marketing_facts" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="inhalt" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="titel_original" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="hauptgenre" type="ArrayOfHauptgenre_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="produk_land" type="ArrayOfProduk_land_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="produk_jahr" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="regisseure" type="ArrayOfRegisseur_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="schauspieler" type="ArrayOfSchauspieler_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="klasse" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="laendercode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="regionalcode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="pal" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="ntsc" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="gewicht" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="infojakob" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="cover_hinten" type="ArrayOfImage_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="szenenbilder" type="ArrayOfImage_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="trailer" type="ArrayOfTrailer_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="edition" type="jakob:editionen" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="kinobesucher" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="preis_vk" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="label_amazon" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="untert_gehoerlos" type="ArrayOfUntertitel_gehoerlose_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="hoerfassung" type="ArrayOfHoerfassung_item" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="untergenre" type="ArrayOfUntergenre_item" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="ean" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="verleihversion" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="voe_datum" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="letzt_aenderung" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="voe_art" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="bonusdisc" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="film_3d" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="code_ultraviolet" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="dat_ultraviolet" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="kinostart" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="altersfreigabe" type="jakob:altersfreigabe" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="inhalt_kurz" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="packshot_3d" type="ArrayOfImage_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfBildformat_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="bildformat_item" type="bildformat_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bildformat_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="format" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfJakobId">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="jakobId" type="jakobId" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="jakobId">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="Value" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfProduk_land_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="produk_land_item" type="produk_land_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="produk_land_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="jakob:produk_land" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfRegisseur_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="regisseur_item" type="regisseur_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="regisseur_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfSchauspieler_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="schauspieler_item" type="schauspieler_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="schauspieler_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="top" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfUntergenre_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="untergenre_item" type="untergenre_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="untergenre_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="jakob:genres" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfHauptgenre_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="hauptgenre_item" type="hauptgenre_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hauptgenre_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="jakob:genres" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfImage_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="cover_item" type="image_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="image_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="0" form="unqualified" name="update" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTrailer_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="trailer_item" type="trailer_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trailer_item">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" form="unqualified" name="update" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTon_sprache_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ton_sprache_item" type="ton_sprache_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ton_sprache_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="jakob:sprachen" />
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="format" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfUntertitel_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="untertitel_item" type="untertitel_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="untertitel_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfUntertitel_gehoerlose_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="untertitel_gehoerlose_item" type="untertitel_gehoerlose_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="untertitel_gehoerlose_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="jakob:sprachen" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfHoerfassung_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="hoerfassung_item" type="hoerfassung_item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hoerfassung_item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" form="unqualified" name="Value" type="jakob:sprachen" />
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

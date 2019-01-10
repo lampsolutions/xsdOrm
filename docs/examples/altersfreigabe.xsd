@@ -1,0 +1,27 @@
+<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   	targetNamespace="http://www.data.jakob.de"
+		   	xmlns="http://www.data.jakob.de"
+				elementFormDefault="unqualified">
+	<xs:simpleType name="altersfreigabe">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="18"/>
+			<xs:enumeration value="i"/>
+			<xs:enumeration value="IP"/>
+			<xs:enumeration value="JK"/>
+			<xs:enumeration value="JKI"/>
+			<xs:enumeration value="KJ"/>
+			<xs:enumeration value="LP"/>
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="TBA"/>
+			<xs:enumeration value="TBA0"/>
+			<xs:enumeration value="TBA6"/>
+			<xs:enumeration value="TBA12"/>
+			<xs:enumeration value="TBA16"/>
+			<xs:enumeration value="TBA18"/>
+			<xs:enumeration value="U"/>
+		</xs:restriction>
+	</xs:simpleType></xs:schema>

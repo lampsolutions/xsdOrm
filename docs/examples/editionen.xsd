@@ -1,0 +1,20 @@
+<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   	targetNamespace="http://www.data.jakob.de"
+		   	xmlns="http://www.data.jakob.de"
+				elementFormDefault="unqualified">
+	<xs:simpleType name="editionen">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Anniversary Edition"/>
+			<xs:enumeration value="Collector's Edition"/>
+			<xs:enumeration value="Deluxe Editon"/>
+			<xs:enumeration value="Director's Cut"/>
+			<xs:enumeration value="Limited Collector's Edition"/>
+			<xs:enumeration value="Limited Deluxe Edition"/>
+			<xs:enumeration value="Limited Edition"/>
+			<xs:enumeration value="Limited Special Edition"/>
+			<xs:enumeration value="Limited Ultimate Edition"/>
+			<xs:enumeration value="Special Edition"/>
+			<xs:enumeration value="Ultimate Edition"/>
+			<xs:enumeration value="Uncut Edition"/>
+		</xs:restriction>
+	</xs:simpleType></xs:schema>
