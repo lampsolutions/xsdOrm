@@ -20,7 +20,7 @@ class Database extends BaseController {
 
 
         $folder=$request->getParam("folder");
-        $namespace=rtrim($request->getParam("namespace"),"/");
+        $namespace=rtrim($request->getParam("namespace"),"\\");
         $unique=$request->getParam("unique");
 
 
