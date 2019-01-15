@@ -96,7 +96,6 @@ class Orm{
                 //$converter = new CamelCaseToSnakeCaseNameConverter();
                 $attribute=lcfirst(str_replace("get","",$name));
                 $unique=in_array($attribute,$uniqueFields);
-
                 $this->addAttributeField($attribute,
                     $this->getTableNameFromClassname($class),
                     $this->getTypeFromClassAndAtribute($class,$name),
@@ -110,7 +109,7 @@ class Orm{
         $reflectionClass = new ReflectionClass($class);
         $attribute=lcfirst(str_replace("get","",$name));
         $pattern = "#(@[a-zA-Z]+\s*[a-zA-Z0-9, ()_].*)#";
-        $pattern_digits = "#(\d{1,3})\sdigits#";
+        $pattern_digits = "#(\d{1,3})(.*)digits#";
 
         try{
             $annotation=($reflectionClass->getProperty($attribute)->getDocComment());
@@ -190,7 +189,7 @@ class Orm{
                 $sth = $this->pdo->prepare($sql);
                 $sth->execute();
             }catch (\Exception $e) {
-                if($name=="gtin") {
+                if($name=="ean") {
                     var_dump($sql);
                     die();
                 }
